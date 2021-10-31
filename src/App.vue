@@ -1,48 +1,33 @@
-<template class="white-content">
-  <div id="app">
-    <div class="content">
-      <notifications></notifications>
-      <router-view :key="$route.fullPath"></router-view>
-    </div>
+<template>
+  <div id="nav">
+    <router-link to="/">Task Tracker</router-link> |
+    <router-link to="/hospital">Hospital</router-link> |  
+    <router-link to="/employee">Employee</router-link> |
+    <router-link to="/bed">Bed</router-link> |
+    <router-link to="/patient">Patient</router-link>
   </div>
+  <router-view/>
 </template>
 
-<script>
-  export default {
-    methods: {
-      disableRTL() {
-        if (!this.$rtl.isRTL) {
-          this.$rtl.disableRTL();
-        }
-      },
-      toggleNavOpen() {
-        let root = document.getElementsByTagName('html')[0];
-        root.classList.toggle('nav-open');
-      }
-    },
-    mounted() {
-      this.$watch('$route', this.disableRTL, { immediate: true });
-      this.$watch('$sidebar.showSidebar', this.toggleNavOpen)
-    }
-  };
-</script>
-
-<style lang="scss">
+<style>
 #app {
-  // font-family: "Avenir", Helvetica, Arial, sans-serif;
+  font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
 }
+
 #nav {
   padding: 30px;
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+}
+
+#nav a {
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+#nav a.router-link-exact-active {
+  color: #42b983;
 }
 </style>
