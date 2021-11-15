@@ -1,42 +1,73 @@
-import { createRouter, createWebHistory } from 'vue-router'
-// import Home from '../views/Home.vue'
+import { createRouter, createWebHashHistory } from "vue-router";
+
+import DashboardLayout from "@/layout/DashboardLayout";
+import AuthLayout from "@/layout/AuthLayout";
+
+import Dashboard from "../views/Dashboard.vue";
+import Icons from "../views/Icons.vue";
+import Maps from "../views/Maps.vue";
+import Profile from "../views/UserProfile.vue";
+import Tables from "../views/Tables.vue";
+
+import Login from "../views/Login.vue";
+import Register from "../views/Register.vue";
 
 const routes = [
   {
-    path: '/',
-    name: 'Task Manager',
-    component: import(/* webpackChunkName: "about" */ '../views/TaskManager.vue')
+    path: "/",
+    redirect: "/dashboard",
+    component: DashboardLayout,
+    children: [
+      {
+        path: "/dashboard",
+        name: "dashboard",
+        components: { default: Dashboard },
+      },
+      {
+        path: "/icons",
+        name: "icons",
+        components: { default: Icons },
+      },
+      {
+        path: "/maps",
+        name: "maps",
+        components: { default: Maps },
+      },
+      {
+        path: "/profile",
+        name: "profile",
+        components: { default: Profile },
+      },
+      {
+        path: "/tables",
+        name: "tables",
+        components: { default: Tables },
+      },
+    ],
   },
   {
-    path: '/employee',
-    name: 'Employee',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Employee.vue')
+    path: "/",
+    redirect: "login",
+    component: AuthLayout,
+    children: [
+      {
+        path: "/login",
+        name: "login",
+        components: { default: Login },
+      },
+      {
+        path: "/register",
+        name: "register",
+        components: { default: Register },
+      },
+    ],
   },
-  {
-    path: '/patient',
-    name: 'Patient',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Patient.vue')
-  },
-  {
-    path: '/bed',
-    name: 'Bed',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Bed.vue')
-  },
-  {
-    path: '/hospital',
-    name: 'Hospital',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Hospital.vue')
-  },
-  {
-    path: '/dashboard',
-    name: 'Dashboard',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Dashboard.vue')
-  },
-]
+];
 
 const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
-  routes
-})
+  history: createWebHashHistory(),
+  linkActiveClass: "active",
+  routes,
+});
 
-export default router
+export default router;
