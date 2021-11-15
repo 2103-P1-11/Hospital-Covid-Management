@@ -4,74 +4,82 @@
       <div class="row">
         <div class="col-xl-3 col-lg-6">
           <stats-card
-            title="Total traffic"
-            type="gradient-red"
-            sub-title="350,897"
-            icon="ni ni-active-40"
+            title="Available beds (All)"
+            type="gradient-blue"
+            sub-title="58"
+            icon="fa fa-bed"
             class="mb-4 mb-xl-0"
           >
             <template v-slot:footer>
-              <span class="text-success mr-2">
-                <i class="fa fa-arrow-up"></i> 3.48%
-              </span>
-              <span class="text-nowrap">Since last month</span>
+              <i class="fa fa-history mr-1"></i> Last updated:
+              <span class="text-nowrap">4 hours ago</span>
             </template>
           </stats-card>
         </div>
         <div class="col-xl-3 col-lg-6">
           <stats-card
-            title="Total traffic"
-            type="gradient-orange"
-            sub-title="2,356"
-            icon="ni ni-chart-pie-35"
+            title="Bed occupancy (All)"
+            type="gradient-blue"
+            sub-title="64%"
+            icon="fa fa-bed"
             class="mb-4 mb-xl-0"
           >
             <template v-slot:footer>
-              <span class="text-success mr-2">
+              <span class="text-danger mr-1">
                 <i class="fa fa-arrow-up"></i> 12.18%
               </span>
-              <span class="text-nowrap">Since last month</span>
+              <span class="text-nowrap">Since yesterday</span>
             </template>
           </stats-card>
         </div>
         <div class="col-xl-3 col-lg-6">
           <stats-card
-            title="Sales"
-            type="gradient-green"
-            sub-title="924"
-            icon="ni ni-money-coins"
+            title="Available beds (ICU)"
+            type="gradient-orange"
+            sub-title="12"
+            icon="fa fa-exclamation"
             class="mb-4 mb-xl-0"
           >
             <template v-slot:footer>
-              <span class="text-danger mr-2">
+              <i class="fa fa-history mr-1"></i> Last updated:
+              <span class="text-nowrap">4 hours ago</span>
+            </template>
+          </stats-card>
+        </div>
+        <div class="col-xl-3 col-lg-6">
+          <stats-card
+            title="BED OCCUPANCY (ICU)"
+            type="gradient-orange"
+            sub-title="87%"
+            icon="fa fa-exclamation"
+            class="mb-4 mb-xl-0"
+          >
+            <template v-slot:footer>
+              <span class="text-success mr-1">
                 <i class="fa fa-arrow-down"></i> 5.72%
               </span>
-              <span class="text-nowrap">Since last month</span>
-            </template>
-          </stats-card>
-        </div>
-        <div class="col-xl-3 col-lg-6">
-          <stats-card
-            title="Performance"
-            type="gradient-info"
-            sub-title="49,65%"
-            icon="ni ni-chart-bar-32"
-            class="mb-4 mb-xl-0"
-          >
-            <template v-slot:footer>
-              <span class="text-success mr-2">
-                <i class="fa fa-arrow-up"></i> 54.8%
-              </span>
-              <span class="text-nowrap">Since last month</span>
+              <span class="text-nowrap">Since yesterday</span>
             </template>
           </stats-card>
         </div>
       </div>
     </base-header>
 
-    <div class="container-fluid mt--7">
-      <!--Charts-->
+    <div class="container-fluid mt--6">
+      <!--Tables-->
       <div class="row">
+        <div class="col-xl-8 mb-5 mb-xl-0">
+          <page-visits-table></page-visits-table>
+        </div>
+        <div class="col-xl-4">
+          <social-traffic-table></social-traffic-table>
+        </div>
+      </div>
+
+      <!--End tables-->
+
+      <!--Charts-->
+      <div class="row mt-5">
         <div class="col-xl-8 mb-5 mb-xl-0">
           <card type="default" header-classes="bg-transparent">
             <template v-slot:header>
@@ -133,17 +141,6 @@
         </div>
       </div>
       <!-- End charts-->
-
-      <!--Tables-->
-      <div class="row mt-5">
-        <div class="col-xl-8 mb-5 mb-xl-0">
-          <page-visits-table></page-visits-table>
-        </div>
-        <div class="col-xl-4">
-          <social-traffic-table></social-traffic-table>
-        </div>
-      </div>
-      <!--End tables-->
     </div>
   </div>
 </template>

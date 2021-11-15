@@ -8,7 +8,7 @@
     <form
       class="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto"
     >
-      <div class="form-group mb-0">
+      <!-- <div class="form-group mb-0">
         <base-input
           placeholder="Search"
           class="input-group-alternative"
@@ -16,7 +16,7 @@
           addon-right-icon="fas fa-search"
         >
         </base-input>
-      </div>
+      </div> -->
     </form>
     <ul class="navbar-nav align-items-center d-none d-md-flex">
       <li class="nav-item dropdown">
@@ -34,7 +34,7 @@
               </div>
             </div>
           </template>
-          <div class="dropdown-header noti-title">
+          <!-- <div class="dropdown-header noti-title">
             <h6 class="text-overflow m-0">Welcome!</h6>
           </div>
           <router-link to="/profile" class="dropdown-item">
@@ -52,8 +52,8 @@
           <router-link to="/profile" class="dropdown-item">
             <i class="ni ni-support-16"></i>
             <span>Support</span>
-          </router-link>
-          <div class="dropdown-divider"></div>
+          </router-link> 
+          <div class="dropdown-divider"></div>-->
           <router-link to="/profile" class="dropdown-item">
             <i class="ni ni-user-run"></i>
             <span>Logout</span>
