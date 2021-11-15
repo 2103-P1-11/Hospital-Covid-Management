@@ -3,7 +3,7 @@
     <div class="card-header border-0">
       <div class="row align-items-center">
         <div class="col">
-          <h3 class="mb-0">Page visits</h3>
+          <h3 class="mb-0">Hospital Levels</h3>
         </div>
         <div class="col text-right">
           <a href="#!" class="btn btn-sm btn-primary">See all</a>
@@ -14,33 +14,37 @@
     <div class="table-responsive">
       <base-table thead-classes="thead-light" :data="tableData">
         <template v-slot:columns>
-          <th>Page name</th>
-          <th>Visitors</th>
-          <th>Unique users</th>
-          <th>Bounce rate</th>
+          <th>Hospital</th>
+          <th>Overall occupancy</th>
+          <th>Regular left</th>
+          <th>ICU Left</th>
+          <th>Status</th>
         </template>
 
         <template v-slot:default="row">
           <th scope="row">
-            {{ row.item.page }}
+            {{ row.item.hospital }}
           </th>
           <td>
-            {{ row.item.visitors }}
+            {{ row.item.overall }}
           </td>
           <td>
-            {{ row.item.unique }}
+            {{ row.item.regularLeft }}
           </td>
           <td>
+            {{ row.item.icuLeft }}
+          </td>
+          <td>
+            {{ row.item.status }}
             <i
-              class="fas fa-arrow-up text-success mr-3"
+              class="fas fa-check-circle text-success ml-1"
               :class="
-                row.item.bounceRateDirection === 'up'
-                  ? 'text-success'
-                  : 'text-danger'
-              "
-            >
+                row.item.statusIndicator === 'green'
+                  ? 'fa-check-circle text-success'
+                  : row.item.statusIndicator === 'orange'
+                  ? 'fa-exclamation-circle text-warning'
+                  : 'fa-times-circle text-danger'">
             </i>
-            {{ row.item.bounceRate }}
           </td>
         </template>
       </base-table>
@@ -54,39 +58,44 @@ export default {
     return {
       tableData: [
         {
-          page: "/argon/",
-          visitors: "4,569",
-          unique: "340",
-          bounceRate: "46,53%",
-          bounceRateDirection: "up",
+          hospital: "Alexandra Hospital",
+          overall: "54%",
+          regularLeft: "24",
+          icuLeft: "5",
+          statusIndicator: "green",
+          status: "Safe",
         },
         {
-          page: "/argon/index.html",
-          visitors: "3,985",
-          unique: "319",
-          bounceRate: "46,53%",
-          bounceRateDirection: "down",
+          hospital: "Changi Hospital",
+          overall: "54%",
+          regularLeft: "24",
+          icuLeft: "5",
+          statusIndicator: "green",
+          status: "Safe",
         },
         {
-          page: "/argon/charts.html",
-          visitors: "3,513",
-          unique: "294",
-          bounceRate: "36,49%",
-          bounceRateDirection: "down",
+          hospital: "Sengkang Hospital",
+          overall: "54%",
+          regularLeft: "24",
+          icuLeft: "5",
+          statusIndicator: "green",
+          status: "Safe",
         },
         {
-          page: "/argon/tables.html",
-          visitors: "2,050",
-          unique: "147",
-          bounceRate: "50,87%",
-          bounceRateDirection: "up",
+          hospital: "Tan Tock Seng Hospital",
+          overall: "54%",
+          regularLeft: "24",
+          icuLeft: "5",
+          statusIndicator: "orange",
+          status: "Moderate",
         },
         {
-          page: "/argon/profile.html",
-          visitors: "1,795",
-          unique: "190",
-          bounceRate: "46,53%",
-          bounceRateDirection: "down",
+          hospital: "Singapore General Hospital",
+          overall: "86%",
+          regularLeft: "4",
+          icuLeft: "2",
+          statusIndicator: "red",
+          status: "Danger",
         },
       ],
     };
