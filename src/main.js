@@ -18,10 +18,14 @@
 import { createApp } from "vue";
 import App from "./App.vue";
 import router from "./router";
+import axios from "axios";
+import cors from "cors";
 import ArgonDashboard from "./plugins/argon-dashboard";
 import "element-plus/lib/theme-chalk/index.css";
 
 const appInstance = createApp(App);
 appInstance.use(router);
+appInstance.use(axios);
+appInstance.use(cors);
 appInstance.use(ArgonDashboard);
 appInstance.mount("#app");
