@@ -4,8 +4,10 @@ import DashboardLayout from "@/layout/DashboardLayout";
 import AuthLayout from "@/layout/AuthLayout";
 
 import Dashboard from "../views/Dashboard.vue";
-import Icons from "../views/Icons.vue";
-import Maps from "../views/Maps.vue";
+import Hospitals from "../views/Hospitals.vue";
+import HospitalsMain from "../views/HospitalsMain.vue";
+
+import Patients from "../views/Patients.vue";
 import Profile from "../views/UserProfile.vue";
 import Tables from "../views/Tables.vue";
 
@@ -24,14 +26,19 @@ const routes = [
         components: { default: Dashboard },
       },
       {
-        path: "/icons",
-        name: "icons",
-        components: { default: Icons },
+        path: "/hospitals",
+        name: "hospitals",
+        components: { default: Hospitals },
       },
       {
-        path: "/maps",
-        name: "maps",
-        components: { default: Maps },
+            path: "/hospitalsMain",
+            name: "hospitalsMain",
+            components: { default: HospitalsMain },
+          },
+      {
+        path: "/patients",
+        name: "patients",
+        components: { default: Patients },
       },
       {
         path: "/profile",

@@ -1,6 +1,11 @@
 <template>
   <nav
-    class="navbar navbar-vertical fixed-left navbar-expand-md navbar-light bg-white"
+    class="
+      navbar navbar-vertical
+      fixed-left
+      navbar-expand-md navbar-light
+      bg-white
+    "
     id="sidenav-main"
   >
     <div class="container-fluid">
@@ -104,14 +109,13 @@
         <h6 class="navbar-heading text-muted">Documentation</h6>
         <!--Navigation-->
         <ul class="navbar-nav mb-md-3">
-          <li class="nav-item">
-            <a
-              class="nav-link"
-              href="https://demos.creative-tim.com/vue-argon-dashboard/documentation"
-            >
-              <i class="ni ni-chart-bar-32"></i> Datasets
-            </a>
-          </li>
+          <router-link to="/profile">
+            <li class="nav-item">
+              <a class="nav-link">
+                <i class="ni ni-chart-bar-32"></i> Datasets
+              </a>
+            </li>
+          </router-link>
           <!-- <li class="nav-item">
             <a
               class="nav-link"

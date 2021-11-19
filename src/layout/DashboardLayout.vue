@@ -60,7 +60,6 @@
     </side-bar>
     <div class="main-content" :data="sidebarBackground">
       <dashboard-navbar></dashboard-navbar>
-
       <div @click="toggleSidebar">
         <!-- your content here -->
         <router-view></router-view>
