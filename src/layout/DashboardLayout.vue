@@ -16,26 +16,26 @@
 
         <sidebar-item
           :link="{
-            name: 'Icons',
-            icon: 'ni ni-planet text-blue',
-            path: '/icons',
+            name: 'Hospitals & Wards',
+            icon: 'fa fa-bed text-orange',
+            path: '/hospitals',
           }"
         />
         <sidebar-item
           :link="{
-            name: 'Maps',
-            icon: 'ni ni-pin-3 text-orange',
-            path: '/maps',
-          }"
-        />
-        <sidebar-item
-          :link="{
-            name: 'User Profile',
+            name: 'Patients',
             icon: 'ni ni-single-02 text-yellow',
+            path: '/patients',
+          }"
+        />
+        <!-- <sidebar-item
+          :link="{
+            name: 'Datasets',
+            icon: 'ni ni-chart-bar-32 text-green',
             path: '/profile',
           }"
-        />
-        <sidebar-item
+        /> -->
+        <!-- <sidebar-item
           :link="{
             name: 'Tables',
             icon: 'ni ni-bullet-list-67 text-red',
@@ -55,7 +55,7 @@
             icon: 'ni ni-circle-08 text-pink',
             path: '/register',
           }"
-        />
+        /> -->
       </template>
     </side-bar>
     <div class="main-content" :data="sidebarBackground">

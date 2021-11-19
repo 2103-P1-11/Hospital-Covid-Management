@@ -109,25 +109,25 @@
               class="nav-link"
               href="https://demos.creative-tim.com/vue-argon-dashboard/documentation"
             >
-              <i class="ni ni-spaceship"></i> Getting started
+              <i class="ni ni-chart-bar-32"></i> Datasets
             </a>
           </li>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a
               class="nav-link"
               href="https://demos.creative-tim.com/vue-argon-dashboard/documentation/foundation/colors.html"
             >
               <i class="ni ni-palette"></i> Foundation
             </a>
-          </li>
-          <li class="nav-item">
+          </li> -->
+          <!-- <li class="nav-item">
             <a
               class="nav-link"
               href="https://demos.creative-tim.com/vue-argon-dashboard/documentation/components/alerts.html"
             >
               <i class="ni ni-ui-04"></i> Components
             </a>
-          </li>
+          </li> -->
         </ul>
       </div>
     </div>
