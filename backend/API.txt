@@ -1,0 +1,14 @@
+List of all working routes & APIs
+
+/// BED ///
+
+GET
+/bed/getall
+
+POST
+/bed/updatestatus {patient: '', status: ''}
+
+
+/// HOSPITAL ///
+
+/hospital/getall
