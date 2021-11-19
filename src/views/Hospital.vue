@@ -77,7 +77,7 @@ export default {
   },
   methods: {
     async getData(){
-      await axios.get("http://localhost:5000/hos/gethospitals")
+      await axios.get("http://localhost:5000/hos/all")
     .then(response => {
       console.log(response.data)
       this.hospitaldata = response.data
