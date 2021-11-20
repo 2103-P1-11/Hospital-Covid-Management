@@ -18,7 +18,7 @@
       <v-list-item>
         <v-list-item-content>
           <v-list-item-title class="text-h6">
-            Hospital Management
+            COVID-19 Hopsital Capacity
           </v-list-item-title>
           <v-list-item-subtitle>
             Database Manager
@@ -59,11 +59,11 @@ export default {
     data() {
         return {
  items: [
-          { title: 'Overview Dashboard', icon: 'mdi-view-dashboard', link: '/' },
-          { title: 'Bed Capacity', icon: 'mdi-bed', link: '/bed' },
-          { title: 'Staff Information', icon: 'mdi-account-group-outline', link: '/employee' },
-          { title: 'Patient Information', icon: 'mdi-clipboard-account-outline', link: '/patient' },
-          { title: 'Hospital Contact', icon: 'mdi-hospital-marker', link: '/hospital' },
+          { title: 'Dashboard', icon: 'mdi-view-dashboard', link: '/' },
+          { title: 'Hospitals', icon: 'mdi-hospital-marker', link: '/hospital' },
+          // { title: 'Bed Capacity', icon: 'mdi-bed', link: '/bed' },
+          // { title: 'Staff Information', icon: 'mdi-account-group-outline', link: '/employee' },
+          { title: 'Patients', icon: 'mdi-clipboard-account-outline', link: '/patient' },
         ],
         }
     },
