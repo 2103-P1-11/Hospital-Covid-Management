@@ -2,7 +2,7 @@ const express = require("express")
 const router = express.Router()
 const db = require('../config/dbconfig')
 
-router.get('/getallpatients', (req, res) => {
+router.get('/all', (req, res) => {
     db.any("Select * from patient;").then(rows=>{
         // console.log(rows);
         res.json(rows)
