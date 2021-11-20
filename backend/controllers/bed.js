@@ -11,6 +11,15 @@ router.get('/all', (req, res) => {
     })
 })
 
+router.get('/allempty', (req, res) => {
+    db.any("Select * from bed where bedstatus=0;").then(rows=>{
+        // console.log(rows);
+        res.json(rows)
+    }).catch(error=>{
+        console.log(error)
+    })
+})
+
 router.get('/hospital', (req, res) => {
     db.any("SELECT ward.hospitalid, ward.wardid, bed.bedid, bed.bedstatus FROM bed INNER JOIN ward ON bed.wardid=ward.wardid INNER JOIN hospital ON ward.hospitalid=hospital.hospitalid;").then(rows=>{
         res.json(rows)

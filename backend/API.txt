@@ -3,6 +3,8 @@ List of all working routes & APIs
 
 /// BED ///
 
+url: localhost:5000
+
 GET
 # Select * from bed
 /bed/getallbeds

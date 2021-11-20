@@ -3,7 +3,7 @@ const router = express.Router()
 const db = require('../config/dbconfig')
 
 router.get('/all', (req, res) => {
-    db.any("Select * from patient;").then(rows=>{
+    db.any("Select patientid, patientname, date(admissiondate) as admissiondate, date(dischargedate) as dischargedate, statusno from patient;").then(rows=>{
         // console.log(rows);
         res.json(rows)
     }).catch(error=>{
@@ -18,6 +18,20 @@ router.get('/getavgdays', (req, res) => {
         console.log(error)
     })
 })
+
+// router.post('/newpatient', async (req, res) => {
+//     try {
+//         // parse request body
+//         const {patientname, admissiondate, dischargedate, statusno} = req.body;
+
+//         //Do SQL query
+//         const getData = await db.query("insert into patient (patientname, admissiondate, dischargedate, statusno) values ('"+patientname+"','"+patientname+"','"+patientname+"','"+patientname+"');")
+//         res.json(getData)
+        
+//     } catch (e) {
+//         console.error(e.message)
+//     }
+// })
 
 
 

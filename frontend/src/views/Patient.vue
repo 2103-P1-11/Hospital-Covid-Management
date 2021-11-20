@@ -1,6 +1,8 @@
 <template>
   <div>
+    <div class="header">
     <h1>Patient Management</h1>
+    </div>
     <v-data-table
       :headers="headers"
       :items="patientdata"
@@ -43,7 +45,7 @@ export default {
       ],
     }
   },
-  mounted() {
+  created() {
     this.getPatients()
   },
   methods: {
@@ -68,5 +70,7 @@ export default {
 
 
 <style scoped>
-
+.header{
+    margin:24px;
+}
 </style>

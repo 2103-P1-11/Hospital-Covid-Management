@@ -1,6 +1,6 @@
 <template>
 <div>
-  <div>
+  <div class="header">
     <h1>Hospital Management</h1>
   </div>
   <table>
@@ -49,7 +49,7 @@
 You selected {{answer}}
 </div>
 
-<label for="fname">First name:</label>
+<label for="fname" autocomplete="false">First name:</label>
   <input type="text" v-model="test" name="fname">
 
   {{test}}
@@ -100,5 +100,7 @@ export default {
 </script>
 
 <style scoped>
-
+.header{
+    margin:24px;
+}
 </style>
