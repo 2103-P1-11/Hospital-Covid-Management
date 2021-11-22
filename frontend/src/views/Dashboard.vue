@@ -4,34 +4,60 @@
       <h1>Dashboard Management</h1>
     </div>
     <div class="overview">
-      <v-card style="width: 50%">
-        <v-card-title> Available Beds (ALL) <br /> </v-card-title>
-        <v-card-text> Beds Available: {{ availbedcount }} </v-card-text>
+      <v-card class="interface">
+        <v-card-title> <div>Available Beds</div>
+        <div>
+          ALL <v-icon >mdi-bed</v-icon>
+        </div>
+        
+         </v-card-title>
+        <v-card-title>{{ availbedcount }}</v-card-title>
+        <v-card-text><v-icon >mdi-history</v-icon> Most Recent </v-card-text>
         <v-card-actions>
-          <!-- <button class="btn">Go to</button> -->
-          <v-btn class="button">Go To</v-btn>
+          <v-btn>Go To</v-btn>
         </v-card-actions>
       </v-card>
-      <v-card style="width: 50%; margin-top: 24px">
-        <v-card-title> Bed Occupancy (ALL) <br /> </v-card-title>
+      <v-card class="interface">
+        <v-card-title> <div>Bed Occupancy</div>
+        <div>
+          ALL <v-icon>mdi-bed</v-icon>
+        </div>
+         </v-card-title>
         <v-card-text>
           Capacity Rate:
-          {{ Math.round((availbedcount / totalbedcount) * 100) }} %
+          {{ Math.round(((totalbedcount - availbedcount) / totalbedcount) * 100) }} %
         </v-card-text>
         <v-card-actions>
-          <!-- <button class="btn">Go to</button> -->
-          <v-btn class="button">Go To</v-btn>
+          <v-btn>Go To</v-btn>
         </v-card-actions>
       </v-card>
-      <v-card style="width: 50%; margin-top: 24px">
-        <v-card-title> Available Bed (ICU) <br /> </v-card-title>
+      <v-card class="interface">
+        <v-card-title> <div>Available Beds</div>
+        <div>
+          ICU <v-icon>mdi-alert-box</v-icon>
+        </div>
+         </v-card-title>
         <v-card-text>
           Beds Available:
-          {{ icubedcount }}
+          {{ availicubedcount }}
         </v-card-text>
         <v-card-actions>
-          <!-- <button class="btn">Go to</button> -->
-          <v-btn class="button">Go To</v-btn>
+          <v-btn>Go To</v-btn>
+        </v-card-actions>
+      </v-card>
+
+      <v-card class="interface">
+        <v-card-title> <div>Bed Occupancy</div>
+        <div>
+          ICU <v-icon>mdi-alert-box</v-icon>
+        </div>
+         </v-card-title>
+        <v-card-text>
+          Capacity Rate:
+          {{ Math.round(((totalicubedcount - availicubedcount) / totalicubedcount) * 100) }} %
+        </v-card-text>
+        <v-card-actions>
+          <v-btn>Go To</v-btn>
         </v-card-actions>
       </v-card>
       
@@ -49,12 +75,15 @@ export default {
     return {
       totalbedcount: null,
       availbedcount: null,
-      icubedcount: null,
+      totalicubedcount: null,
+      availicubedcount: null,
     };
   },
   mounted() {
     this.getTotalBeds();
     this.getAvailBeds();
+    this.getICUtotalBeds();
+    this.getICUavailableBeds();
   },
   methods: {
     async getTotalBeds() {
@@ -83,6 +112,30 @@ export default {
           console.error("There was an error!", error);
         });
     },
+    async getICUavailableBeds() {
+      await axios
+        .get("http://localhost:5000/bed/availicubeds")
+        .then((response) => {
+          console.log(response.data);
+          this.availicubedcount = response.data.length;
+        })
+        .catch((error) => {
+          this.errorMessage = error.message;
+          console.error("There was an error!", error);
+        });
+    },
+    async getICUtotalBeds() {
+      await axios
+        .get("http://localhost:5000/bed/totalicubeds")
+        .then((response) => {
+          console.log(response.data);
+          this.totalicubedcount = response.data.length;
+        })
+        .catch((error) => {
+          this.errorMessage = error.message;
+          console.error("There was an error!", error);
+        });
+    },
   },
 };
 </script>
@@ -90,6 +143,21 @@ export default {
 <style scoped>
 .header {
   margin: 24px;
+}
+
+.overview{
+  display:flex;
+  flex-direction: row;
+  
+}
+
+.interface{
+  margin-left:24px;
+  margin-right:24px;
+}
+
+.button{
+  color:red;
 }
 
 /* .button{

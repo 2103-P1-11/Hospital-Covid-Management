@@ -7,7 +7,7 @@ url: localhost:5000
 
 GET
 # Select * from bed
-/bed/getallbeds
+/bed/all
 
 # SELECT ward.hospitalid, ward.wardid, bed.bedid, bed.bedstatus
 /bed/gethospbeds

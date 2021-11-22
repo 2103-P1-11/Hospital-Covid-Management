@@ -36,6 +36,22 @@ router.get('/ward', (req, res) => {
     })
 })
 
+router.get('/availicubeds', (req, res) => {
+    db.any("Select ward.wardid, bed.bedid, bed.bedstatus from bed left join ward on bed.wardid = ward.wardid where ward.wardtype = 'ICU' and bed.bedstatus=0;").then(rows=>{
+        res.json(rows)
+    }).catch(error=>{
+        console.log(error)
+    })
+})
+
+router.get('/totalicubeds', (req, res) => {
+    db.any("Select ward.wardid, bed.bedid, bed.bedstatus from bed left join ward on bed.wardid = ward.wardid where ward.wardtype = 'ICU';").then(rows=>{
+        res.json(rows)
+    }).catch(error=>{
+        console.log(error)
+    })
+})
+
 //Display all empty beds in wards of each hospital
 router.post('/searchward', (req, res) => {
     const {wardid} = req.body;

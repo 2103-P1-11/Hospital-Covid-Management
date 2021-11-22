@@ -6,10 +6,14 @@
 
         <v-list-item>
           <v-list-item-content>
-            <img src="@/assets/logo.png" height="200px" width="40px" />
-            <v-list-item-title>
-              <b>COVID-19 Hospital Capacity</b>
+              <v-list-item-title>
+                  <div style="text-align:center; padding:24px;">
+              <b>COVID-19 <br/> Hospital Capacity <br/> Management</b>
+              </div>
             </v-list-item-title>
+            <v-list-item>
+            <v-img  :aspect-ratio="17/19" src="@/assets/medicine.png" />
+            </v-list-item>
           </v-list-item-content>
         </v-list-item>
 
@@ -77,7 +81,6 @@ export default {
       ],
       documentation: [
         { title: "Datasets", icon: "mdi-poll", link: "#" },
-        
       ],
     };
   },
