@@ -16,7 +16,8 @@
     "pg-promise": "^10.11.1",
     "vue": "^3.0.0",
     "vue-axios": "^3.3.7",
-    "vue-router": "^4.0.0-0"
+    "vue-router": "^4.0.0-0",
+    "vue2-google-maps": "^0.10.7"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",

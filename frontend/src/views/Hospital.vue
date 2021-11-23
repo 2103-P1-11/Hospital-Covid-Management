@@ -2,20 +2,26 @@
   <div>
     <v-container>
       <div class="header">
-        <h1>Hospital Management</h1>
+        <h1>{{ pageTitle }}</h1>
       </div>
 
-      <v-row v-if="!hospitalSelected">
-      <v-col cols="6">
-        <v-select
-          :items="items"
-          filled
-          label="Choose hospital"
-          dense
-        ></v-select>
-      </v-col>
+      <v-container v-if="!hospitalSelected" fluid>
+        <v-row align="center">
+          <v-col cols="6">
+            <v-select
+              v-model="test"
+              :items="hospitaldataName"
+              dense
+              filled
+              item-text="test"
+              label="Choose hospital"
+              return-object
+            ></v-select>
+          </v-col>
+        </v-row>
+      </v-container>
 
-      <select
+      <!-- <select
         name="hospital"
         id="hospital"
         v-model="answer"
@@ -28,11 +34,10 @@
         >
           {{ hospital.hospitalname }}
         </option>
-      </select>
-    </v-row>
-    <v-btn @click="methodOne()"> Select hospital </v-btn>
-
-      <div class="cards">
+      </select> -->
+      <!-- </v-row> -->
+      <v-btn @click="methodOne()"> Select hospital </v-btn>
+      <div class="cards" v-for >
         <v-card class="interface">
           <v-card-title>
             <div>Available Beds</div>
@@ -94,7 +99,39 @@
             <v-btn>Go To</v-btn>
           </v-card-actions>
         </v-card>
-      </div>
+      </div> -->
+      <!-- <v-row>
+        
+        <v-col cols="6">
+          <div class="nearestHosp">
+            <div class="caption">
+              <h3>Nearest alternative:</h3>
+              <p>Singapore General Hospital</p>
+            </div>
+            <div class="nearestHospStatus">
+              <h4>Available Capacity: 50%</h4>
+            </div>
+            <div class="nearestMap">
+              <GmapMap ref="mapRef"
+                :center="{ lat: 10, lng: 10 }"
+                :zoom="15"
+                map-type-id="hybrid"
+                style="width: 500px; height: 300px"
+              >
+                <GmapMarker
+                  :key="index"
+                  v-for="(m, index) in markers"
+                  :position="m.position"
+                  :clickable="false"
+                  :draggable="false"
+                  @click="center = m.position"
+                />
+              </GmapMap>
+            </div>
+          </div>
+        </v-col>
+      </v-row>
+      <v-col cols="6"> </v-col>
 
       <v-data-table :headers="headers" :items="patientdata" class="elevation-1">
         <template v-slot:items="props">
@@ -104,13 +141,13 @@
           <td class="text-xs-right">{{ props.item.dischargedate }}</td>
           <td class="text-xs-right">{{ props.item.discharge }}</td>
         </template>
-      </v-data-table>
+      </v-data-table> -->
 
       <!-- <label for="fname" autocomplete="false">First name:</label>
     <input type="text" v-model="test" name="fname" />
     {{ test }}
     <button @click="methodOne()">Click me</button>
-    <div>You selected {{ answer }}</div> -->
+    <div>You selected {{ answer }}</div> 
     </v-container>
   </div>
 </template>
@@ -123,13 +160,23 @@ export default {
   components: {},
   data() {
     return {
-      hospitaldata: [],
+      hospitaldata: null,
+      hospitaldataName: [],
       answer: "",
       test: "",
+      hospitalSelected: false,
+      pageTitle: "Hospital Management",
     };
   },
   mounted() {
     this.getData();
+    // At this point, the child GmapMap has been mounted, but
+    // its map has not been initialized.
+    // Therefore we need to write mapRef.$mapPromise.then(() => ...)
+
+    this.$refs.mapRef.$mapPromise.then((map) => {
+      map.panTo({ lat: 1.2798700699395875, lng: 103.83599472592941 });
+    });
   },
   methods: {
     async getData() {
@@ -137,6 +184,10 @@ export default {
         .get("http://localhost:5000/hos/all")
         .then((response) => {
           console.log(response.data);
+
+          for (let i = 0; i < response.data.length; i++) {
+            this.hospitaldataName.push(response.data[i]["hospitalname"]);
+          }
           this.hospitaldata = response.data;
         })
         .catch((error) => {
@@ -146,6 +197,8 @@ export default {
     },
     methodOne() {
       console.log(this.test);
+      this.hospitalSelected = true;
+      this.pageTitle = this.test;
     },
   },
 };
@@ -162,7 +215,7 @@ export default {
   flex-direction: row;
 }
 
-.interface{
-  margin-right:16px;
+.interface {
+  margin-right: 16px;
 }
 </style>
