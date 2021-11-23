@@ -1,26 +1,28 @@
 <template>
   <div id="app">
-    <v-container fluid>
-      <v-row>
-        <v-col cols="3">
-          <sidebar/>
-        </v-col>
-        <v-col cols="9">
-          <router-view/>
-        </v-col>
-      </v-row>
-    </v-container>
+    <div id="banner">
+      <v-container fluid>
+        <v-row>
+          <v-col cols="2">
+            <sidebar />
+          </v-col>
+          <v-col cols="10">
+            <router-view />
+          </v-col>
+        </v-row>
+      </v-container>
+    </div>
   </div>
 </template>
 
 <script>
-import sidebar from './components/sidebar.vue'
+import sidebar from "./components/sidebar.vue";
 
 export default {
-  components:{
-    sidebar
-  }
-}
+  components: {
+    sidebar,
+  },
+};
 </script>
 
 <style lang="scss">
@@ -30,7 +32,16 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
   height: 100vh;
-  background: linear-gradient(180deg, #37a0a0 50%, #ffffff 50%);
 }
 
+#banner {
+  background: rgb(153, 244, 222);
+  background: linear-gradient(
+    45deg,
+    rgba(153, 244, 222, 1) 0%,
+    rgba(58, 236, 188, 1) 40%,
+    rgba(10, 218, 148, 1) 100%
+  );
+  height:30%;
+}
 </style>

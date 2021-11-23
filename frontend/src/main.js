@@ -4,6 +4,8 @@ import vuetify from './plugins/vuetify'
 import VueRouter from 'vue-router'
 import router from './router'
 import cors from 'cors'
+import './main.css';
+
 
 Vue.config.productionTip = false
 

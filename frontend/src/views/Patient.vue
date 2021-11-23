@@ -67,10 +67,8 @@ export default {
 }
 </script>
 
-
-
 <style scoped>
-.header{
+/* .header{
     margin:24px;
-}
+} */
 </style>
