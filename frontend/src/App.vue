@@ -1,24 +1,27 @@
 <template>
-  <div id="app">
+  <v-app id="app">
     <v-container fluid>
+      <toolbar/>
       <v-row>
-        <v-col cols="3">
+        <v-col cols="2">
           <sidebar/>
         </v-col>
-        <v-col cols="9">
+        <v-col cols="10">
           <router-view/>
         </v-col>
       </v-row>
     </v-container>
-  </div>
+  </v-app>
 </template>
 
 <script>
 import sidebar from './components/sidebar.vue'
+import toolbar from './components/toolbar.vue'
 
 export default {
   components:{
-    sidebar
+    sidebar,
+    toolbar,
   }
 }
 </script>

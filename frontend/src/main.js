@@ -4,6 +4,8 @@ import vuetify from './plugins/vuetify'
 import VueRouter from 'vue-router'
 import router from './router'
 import cors from 'cors'
+import './theme/main.css'
+import store from './vuex/store'
 
 Vue.config.productionTip = false
 
@@ -13,5 +15,6 @@ new Vue({
   VueRouter,
   router,
   cors,
+  store,
   render: h => h(App)
 }).$mount('#app')
