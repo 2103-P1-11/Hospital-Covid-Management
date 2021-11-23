@@ -1,32 +1,22 @@
 <template>
-  <v-card class="pa-12" color="indigo darken-2" flat height="100%">
-    <v-card elevation="12" width="100%" height="100%">
-      <v-navigation-drawer floating dark width="100%" permanent>
-        <!-- src="https://cdn.vuetifyjs.com/images/backgrounds/bg-2.jpg" -->
-
-        <v-list-item>
-          <v-list-item-content>
-              <v-list-item-title>
-                  <div style="text-align:center; padding:24px;">
-              <b>COVID-19 <br/> Hospital Capacity <br/> Management</b>
-              </div>
+<v-navigation-drawer permanent>
+      <v-toolbar dark>
+        <v-list>
+          <v-list-item>
+            <v-list-item-title class="title">
+              Overview
             </v-list-item-title>
-            <v-list-item>
-            <v-img  :aspect-ratio="17/19" src="@/assets/medicine.png" />
-            </v-list-item>
-          </v-list-item-content>
-        </v-list-item>
-
-        <v-divider></v-divider>
-        <v-list-item>
-          <b>Overview</b>
-        </v-list-item>
-        <v-divider></v-divider>
-        <v-list dense rounded>
+          </v-list-item>
+        </v-list>
+      </v-toolbar>
+  
+      <v-divider></v-divider>
+  
+      <v-list dense rounded>
           <v-list-item
             v-for="item in overview"
             :key="item.title"
-            @click="routeTo(item.link)"
+            @click="routeTo(item.title, item.link)"
           >
             <v-list-item-icon>
               <v-icon>{{ item.icon }}</v-icon>
@@ -37,17 +27,22 @@
             </v-list-item-content>
           </v-list-item>
         </v-list>
-
-        <v-divider></v-divider>
-        <v-list-item>
-          <b>Documentation</b>
-        </v-list-item>
-        <v-divider></v-divider>
-        <v-list dense rounded>
+      <v-toolbar dark>
+        <v-list>
+          <v-list-item>
+            <v-list-item-title class="title">
+              Documentation
+            </v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </v-toolbar>
+  
+      <v-divider></v-divider>
+      <v-list dense rounded>
           <v-list-item
             v-for="item in documentation"
             :key="item.title"
-            @click="routeTo(item.link)"
+            @click="routeTo(item.title,item.link)"
           >
             <v-list-item-icon>
               <v-icon>{{ item.icon }}</v-icon>
@@ -58,13 +53,13 @@
             </v-list-item-content>
           </v-list-item>
         </v-list>
-      </v-navigation-drawer>
-    </v-card>
-  </v-card>
+    </v-navigation-drawer>
+  
 </template>
 
 <script>
 export default {
+    name: 'sidebar',
   setup() {},
   data() {
     return {
@@ -85,8 +80,10 @@ export default {
     };
   },
   methods: {
-    routeTo(link) {
-      this.$router.push(link);
+    routeTo(title, link) {
+        // console.log(title)
+        this.$store.commit('renamePage', title)
+        this.$router.push(link);
     },
   },
 };

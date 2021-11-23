@@ -5,8 +5,8 @@ const cors = require('cors')
 
 app.use(express.json()).use(cors());
 
-const bedRouter = require('./controllers/bed')
-app.use('/bed', bedRouter)
+const dbRouter = require('./controllers/dashboard')
+app.use('/db', dbRouter)
 
 const hosRouter = require('./controllers/hospital')
 app.use('/hos', hosRouter)

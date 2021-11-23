@@ -2,18 +2,16 @@ const express = require("express")
 const router = express.Router()
 const db = require('../config/dbconfig')
 
-router.get('/all', (req, res) => {
-    db.any("Select * from bed;").then(rows=>{
-        // console.log(rows);
+router.get('/bedstatus', (req, res) => {
+    db.any("Select bed.bedstatus, count(bed.bedstatus) as total from bed group by bed.bedstatus;").then(rows=>{
         res.json(rows)
     }).catch(error=>{
         console.log(error)
     })
 })
 
-router.get('/allempty', (req, res) => {
-    db.any("Select * from bed where bedstatus=0;").then(rows=>{
-        // console.log(rows);
+router.get('/icubedstatus', (req, res) => {
+    db.any("Select bed.bedstatus, count(bed.bedstatus) as total from bed left join ward on bed.wardid = ward.wardid where ward.wardtype = 'ICU' group by bed.bedstatus;").then(rows=>{
         res.json(rows)
     }).catch(error=>{
         console.log(error)
@@ -36,16 +34,8 @@ router.get('/ward', (req, res) => {
     })
 })
 
-router.get('/availicubeds', (req, res) => {
-    db.any("Select ward.wardid, bed.bedid, bed.bedstatus from bed left join ward on bed.wardid = ward.wardid where ward.wardtype = 'ICU' and bed.bedstatus=0;").then(rows=>{
-        res.json(rows)
-    }).catch(error=>{
-        console.log(error)
-    })
-})
-
-router.get('/totalicubeds', (req, res) => {
-    db.any("Select ward.wardid, bed.bedid, bed.bedstatus from bed left join ward on bed.wardid = ward.wardid where ward.wardtype = 'ICU';").then(rows=>{
+router.get('/admission', (req, res) => {
+    db.any("Select bed.bedid, bed.patientid, bed.bedstatus, patient.admissiondate, patient.statusno from bed left join patient on bed.patientid = patient.patientid;").then(rows=>{
         res.json(rows)
     }).catch(error=>{
         console.log(error)

@@ -1,7 +1,8 @@
 <template>
-  <div id="app">
+  <v-app id="app">
     <div id="banner">
       <v-container fluid>
+        <toolbar />
         <v-row>
           <v-col cols="2">
             <sidebar />
@@ -12,15 +13,17 @@
         </v-row>
       </v-container>
     </div>
-  </div>
+  </v-app>
 </template>
 
 <script>
 import sidebar from "./components/sidebar.vue";
+import toolbar from "./components/toolbar.vue";
 
 export default {
   components: {
     sidebar,
+    toolbar,
   },
 };
 </script>
@@ -42,6 +45,6 @@ export default {
     rgba(58, 236, 188, 1) 40%,
     rgba(10, 218, 148, 1) 100%
   );
-  height:30%;
+  height: 30%;
 }
 </style>
