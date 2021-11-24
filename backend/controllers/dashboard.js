@@ -34,8 +34,10 @@ router.get('/recentadmit', (req, res) => {
     })
 })
 
-router.get('/hospital', (req, res) => {
-    db.any("SELECT ward.hospitalid, ward.wardid, bed.bedid, bed.bedstatus FROM bed INNER JOIN ward ON bed.wardid=ward.wardid INNER JOIN hospital ON ward.hospitalid=hospital.hospitalid;").then(rows=>{
+router.get('/hospitalinfo', (req, res) => {
+    db.any("Select hospital.hospitalid, hospitalname, bed.patientid, ward.wardtype, ward.staffid1, \
+    ward.staffid2 from hospital inner join ward on hospital.hospitalid = ward.hospitalid\
+    inner join bed on ward.wardid = bed.wardid order by hospitalid;").then(rows=>{
         res.json(rows)
     }).catch(error=>{
         console.log(error)

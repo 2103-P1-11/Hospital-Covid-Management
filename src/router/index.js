@@ -1,11 +1,14 @@
-import { createRouter, createWebHistory } from 'vue-router'
-// import Home from '../views/Home.vue'
+import Vue from 'vue'
+import VueRouter from 'vue-router'
+import Dashboard from '../views/Dashboard.vue'
+
+Vue.use(VueRouter)
 
 const routes = [
   {
     path: '/',
-    name: 'Task Manager',
-    component: import(/* webpackChunkName: "about" */ '../views/TaskManager.vue')
+    name: 'Dashboard',
+    component: Dashboard
   },
   {
     path: '/employee',
@@ -27,15 +30,11 @@ const routes = [
     name: 'Hospital',
     component: () => import(/* webpackChunkName: "about" */ '../views/Hospital.vue')
   },
-  {
-    path: '/dashboard',
-    name: 'Dashboard',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Dashboard.vue')
-  },
 ]
 
-const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
+const router = new VueRouter({
+  mode: 'history',
+  base: process.env.BASE_URL,
   routes
 })
 

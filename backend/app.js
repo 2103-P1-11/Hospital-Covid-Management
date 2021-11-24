@@ -17,9 +17,6 @@ app.use('/staff', staffRouter)
 const patientRouter = require('./controllers/patient')
 app.use('/patient', patientRouter)
 
-const misRouter = require('./controllers/misc')
-app.use('/db', misRouter)
-
 app.listen(5000,()=>{
     console.log("server is listening on port 5000")
 })
