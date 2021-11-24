@@ -18,6 +18,22 @@ router.get('/icubedstatus', (req, res) => {
     })
 })
 
+router.get('/alldischarge', (req, res) => {
+    db.any("Select * from patient where patient.dischargedate between (NOW() - INTERVAL '14 DAY') AND NOW();").then(rows=>{
+        res.json(rows)
+    }).catch(error=>{
+        console.log(error)
+    })
+})
+
+router.get('/recentadmit', (req, res) => {
+    db.any("SELECT * FROM patient where patient.admissiondate > (NOW() - INTERVAL '7 DAY');").then(rows=>{
+        res.json(rows)
+    }).catch(error=>{
+        console.log(error)
+    })
+})
+
 router.get('/hospital', (req, res) => {
     db.any("SELECT ward.hospitalid, ward.wardid, bed.bedid, bed.bedstatus FROM bed INNER JOIN ward ON bed.wardid=ward.wardid INNER JOIN hospital ON ward.hospitalid=hospital.hospitalid;").then(rows=>{
         res.json(rows)
