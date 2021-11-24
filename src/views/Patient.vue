@@ -3,7 +3,7 @@
     <div class="header">
       <v-row align="center" justify="space-between">
         <h1>Patient Management</h1>
-        <v-dialog v-model="dialog" max-width="800px">
+        <v-dialog v-model="dialog" width="1200px">
           <template v-slot:activator="{ on, attrs }">
             <v-btn color="red lighten-4" v-bind="attrs" v-on="on">
               Add patients<v-icon>mdi-plus-box-outline</v-icon>
@@ -15,45 +15,49 @@
             </v-card-title>
             <v-container fluid>
               <v-row>
-                <v-col class="d-flex" cols="12" sm="6">
+                <v-col cols="12" sm="6">
                   <v-select label="Hospital" outlined :items="hospitalDetails" name="hospital" item-text="hospitalname"></v-select>
                 </v-col>
               </v-row>
               <v-flex class="wardOverview">
-                <v-card border="top" elevation="4" color="red" dark width="280px">
-                  <v-card-title background="rgb(205,26,87)">
+                <v-card border="top" elevation="4" color="red" dark width="150px">
+                  <v-card-title background="rgb(205,26,87)"  class="text-center">
                     <h3>ICU</h3><v-spacer></v-spacer>
                   </v-card-title>
                   <!--Avaliable bed value!-->
-                  <v-card-subtitle class="justify-center">8 <br/> Available Beds</v-card-subtitle>
+                  <v-card-subtitle class="text-center">8 <br/> Available Beds</v-card-subtitle>
                 </v-card>
-                <v-card border="top" elevation="4" color="red" dark width="280px">
-                  <v-card-title background="rgb(205,26,87)">
+                <v-spacer></v-spacer>
+                <v-card border="top" elevation="4" color="red" dark width="200px">
+                  <v-card-title background="rgb(205,26,87)" class="justify-center">
                     <h3>Ward A</h3><v-spacer></v-spacer>
                   </v-card-title>
                   <!--Avaliable bed value!-->
-                  <v-card-subtitle>8 Available Beds</v-card-subtitle>
+                  <v-card-subtitle class="text-center">7 Available Beds</v-card-subtitle>
                 </v-card>
-                 <v-card border="top" elevation="4" color="red" dark width="280px">
-                  <v-card-title background="rgb(205,26,87)">
+                <v-spacer></v-spacer>
+                 <v-card border="top" elevation="4" color="red" dark width="200px">
+                  <v-card-title background="rgb(205,26,87)" class="justify-center">
                     <h3>Ward B1</h3><v-spacer></v-spacer>
                   </v-card-title>
                   <!--Avaliable bed value!-->
-                  <v-card-subtitle>8 Available Beds</v-card-subtitle>
+                  <v-card-subtitle class="text-center">8 Available Beds</v-card-subtitle>
                 </v-card>
-                 <v-card border="top" elevation="4" color="red" dark width="280px">
-                  <v-card-title background="rgb(205,26,87)">
+                <v-spacer></v-spacer>
+                 <v-card border="top" elevation="4" color="red" dark width="200px">
+                  <v-card-title background="rgb(205,26,87)" class="justify-center">
                     <h3>Ward B2</h3><v-spacer></v-spacer>
                   </v-card-title>
                   <!--Avaliable bed value!-->
-                  <v-card-subtitle>8 Available Beds</v-card-subtitle>
+                  <v-card-subtitle class="text-center">8 Available Beds</v-card-subtitle>
                 </v-card>
-                 <v-card border="top" elevation="4" color="red" dark width="280px">
-                  <v-card-title background="rgb(205,26,87)">
+                <v-spacer></v-spacer>
+                 <v-card border="top" elevation="4" color="red" dark width="200px">
+                  <v-card-title background="rgb(205,26,87)" class="justify-center">
                     <h3>Ward C</h3><v-spacer></v-spacer>
                   </v-card-title>
                   <!--Avaliable bed value!-->
-                  <v-card-subtitle>8 Available Beds</v-card-subtitle>
+                  <v-card-subtitle class="text-center">8 Available Beds</v-card-subtitle>
                 </v-card>
                 
               </v-flex>
@@ -274,7 +278,6 @@ export default {
 
 .wardOverview{
   display:flex;
-  align-content: center;
   flex-direction: row;
   margin: 24px;
 }
