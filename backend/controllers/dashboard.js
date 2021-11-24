@@ -37,7 +37,7 @@ router.get('/recentadmit', (req, res) => {
 router.get('/hospitalinfo', (req, res) => {
     db.any("Select hospital.hospitalid, hospitalname, bed.patientid, ward.wardtype, ward.staffid1, \
     ward.staffid2 from hospital inner join ward on hospital.hospitalid = ward.hospitalid\
-    inner join bed on ward.wardid = bed.wardid order by hospitalid;").then(rows=>{
+    inner join bed on ward.wardid = bed.wardid order by hospitalid, wardtype;").then(rows=>{
         res.json(rows)
     }).catch(error=>{
         console.log(error)
@@ -59,6 +59,24 @@ router.get('/admission', (req, res) => {
         console.log(error)
     })
 })
+
+router.get('/hospitaltotal', (req, res) => {
+    db.any("Select avg( DATE_PART('day', patient.dischargedate - admissiondate)) from patient;").then(rows=>{
+        res.json(rows)
+    }).catch(error=>{
+        console.log(error)
+    })
+})
+
+
+router.get('/hospitaldays', (req, res) => {
+    db.any("Select avg( DATE_PART('day', patient.dischargedate - admissiondate)) from patient where patient.dischargedate > (NOW() - INTERVAL '7 DAY');").then(rows=>{
+        res.json(rows)
+    }).catch(error=>{
+        console.log(error)
+    })
+})
+
 
 //Display all empty beds in wards of each hospital
 router.post('/searchward', (req, res) => {
