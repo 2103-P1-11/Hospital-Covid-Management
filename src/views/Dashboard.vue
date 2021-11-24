@@ -114,44 +114,49 @@
         :search="search"
       >
         <template v-slot:top>
+          <v-toolbar dark dense>
+            <v-toolbar-title>Hospital Level</v-toolbar-title>
+          </v-toolbar>
           <v-text-field
             v-model="search"
             label="Search"
             class="mx-4"
           ></v-text-field>
         </template>
-        <template v-slot:items="props">
-          <td>{{ props.item.name }}</td>
-          <td class="text-xs-right">{{ props.item.calories }}</td>
-          <td class="text-xs-right">{{ props.item.fat }}</td>
-          <td class="text-xs-right">{{ props.item.carbs }}</td>
-          <td class="text-xs-right">{{ props.item.protein }}</td>
-          <td class="text-xs-right">{{ props.item.iron }}</td>
-        </template>
       </v-data-table>
       </v-col>
+      
       <v-col cols="4">
-        <v-card
+        <v-card tile
       class="mx-auto"
       max-width="500"
     >
-      <v-list>
-        <v-list-item-group v-model="model">
-          <v-list-item-title>
-            Test
-          </v-list-item-title>
-          <v-list-item
-            v-for="(item, i) in items"
-            :key="i"
-          >
-            <v-list-item-icon>
-              <v-icon v-text="item.icon"></v-icon>
-            </v-list-item-icon>
-            <v-list-item-content>
-              <v-list-item-title v-text="item.text"></v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-        </v-list-item-group>
+    <v-toolbar dark dense>
+            <v-toolbar-title>Most Recent Updates</v-toolbar-title>
+          </v-toolbar>
+      <v-list two-line >
+            <template v-for="(item, index) in mostrecent">
+              <v-list-item
+                :key="item.patient"
+                ripple
+                @click="toggle(index)"
+              >
+                <v-list-item-content>
+                  <v-list-item-subtitle># {{ item.patient }}</v-list-item-subtitle>
+                  <v-list-item-title>{{ item.desc }}</v-list-item-title>
+                </v-list-item-content>
+  
+                <v-list-item-action>
+                  <v-list-item-action-text>{{ item.time }}</v-list-item-action-text>
+                  
+                </v-list-item-action>
+  
+              </v-list-item>
+              <v-divider
+                v-if="index + 1 < mostrecent.length"
+                :key="index"
+              ></v-divider>
+            </template>
       </v-list>
     </v-card>
         </v-col>
@@ -168,25 +173,7 @@ export default {
   components: {},
   data() {
     return {
-      items: [
-      {
-        icon: 'mdi-inbox',
-        text: 'Inbox',
-      },
-      {
-        icon: 'mdi-star',
-        text: 'Star',
-      },
-      {
-        icon: 'mdi-send',
-        text: 'Send',
-      },
-      {
-        icon: 'mdi-email-open',
-        text: 'Drafts',
-      },
-    ],
-    model: 1,
+      mostrecent: [],
       availbedcount: null,
       search: "",
       fullbedcount: null,
@@ -220,15 +207,70 @@ export default {
     this.getDischarged();
     this.getrecentadmitted();
     this.gethospitalinfo();
+    this.getMostRecent();
   },
 
   methods: {
+    toggle (index) {
+      const i = this.selected.indexOf(index)
+
+      if (i > -1) {
+        this.selected.splice(i, 1)
+      } else {
+        this.selected.push(index)
+      }
+    },
     async getBeds() {
       await axios
         .get("http://localhost:5000/db/bedstatus")
         .then((response) => {
           this.availbedcount = response.data[0]["total"];
           this.fullbedcount = response.data[1]["total"];
+        })
+        .catch((error) => {
+          this.errorMessage = error.message;
+          console.error("There was an error!", error);
+        });
+    },
+    async getMostRecent() {
+      await axios
+        .get("http://localhost:5000/db/mostrecent")
+        .then((response) => {
+          for (let i = 0; i < response.data.length ; i ++){
+            // get total seconds between the times
+            let currdate = new Date();
+            var delta = Math.abs(currdate - Date.parse(response.data[i]['admissiondate'])) / 1000;
+            
+            // calculate (and subtract) whole days
+            var days = Math.floor(delta / 86400);
+            delta -= days * 86400;
+
+            // calculate (and subtract) whole hours
+            var hours = Math.floor(delta / 3600) % 24;
+            delta -= hours * 3600;
+            // calculate (and subtract) whole minutes
+            var minutes = Math.floor(delta / 60) % 60;
+            delta -= minutes * 60;
+
+            // console.log(days, hours, minutes)
+
+            let timeleft = ''
+            if(days){
+              timeleft = days.toString() + " days"
+            }else if (hours){
+              timeleft = hours.toString() + " hours"
+            }else{
+              timeleft = minutes.toString() + " mins"
+            }
+
+            this.mostrecent.push({
+          patient: response.data[i]['patientid'],
+          desc: response.data[i]['condition'],
+          time: timeleft,
+          type: response.data[i]['statusno'],
+        })
+          }
+          
         })
         .catch((error) => {
           this.errorMessage = error.message;
@@ -327,9 +369,8 @@ export default {
             data.staff.push(this.hospitaldata[i]["staffid2"]);
           }
         }else {
-
           // 30%, 50%, 70%, 90%
-          let occupancystatus = Math.round((data.availbed / data.totalbed) * 100).toString() + " %";
+          let occupancystatus = 100 - Math.round((data.availbed / data.totalbed) * 100).toString() + " %";
 
           this.tabledata.push({
             hospital: hospitalNames[counter],
@@ -376,7 +417,7 @@ export default {
             hospital: hospitalNames[counter],
             bed: data.availbed.toString() + " / " + data.totalbed.toString(),
             icu: data.availicu.toString() + " / " + data.totalicu.toString(),
-            status: Math.round((data.availbed / data.totalbed) * 100).toString() + " %",
+            status: 100 - Math.round((data.availbed / data.totalbed) * 100).toString() + " %",
             patient: data.patient,
             staff: data.staff.length,
           });

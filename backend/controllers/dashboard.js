@@ -44,6 +44,15 @@ router.get('/hospitalinfo', (req, res) => {
     })
 })
 
+router.get('/mostrecent', (req, res) => {
+    db.any("Select patientid, admissiondate, patient.statusno, condition from patient left join status on patient.statusno = \
+    status.statusno where admissiondate <= now() order by admissiondate desc limit 5;").then(rows=>{
+        res.json(rows)
+    }).catch(error=>{
+        console.log(error)
+    })
+})
+
 router.get('/ward', (req, res) => {
     db.any("SELECT ward.wardid, bed.bedid, bed.bedstatus FROM bed INNER JOIN ward ON bed.wardid=ward.wardid where bed.bedstatus=0").then(rows=>{
         res.json(rows)
