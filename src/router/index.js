@@ -21,15 +21,16 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../views/Patient.vue')
   },
   {
-    path: '/bed',
-    name: 'Bed',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Bed.vue')
-  },
-  {
     path: '/hospital',
     name: 'Hospital',
     component: () => import(/* webpackChunkName: "about" */ '../views/Hospital.vue')
   },
+  // {
+  //   path: '/test',
+  //   name: 'test',
+  //   component: () => import(/* webpackChunkName: "about" */ '../charts/charttest.vue')
+  // },
+  
 ]
 
 const router = new VueRouter({

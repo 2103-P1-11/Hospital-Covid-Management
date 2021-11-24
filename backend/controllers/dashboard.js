@@ -86,6 +86,16 @@ router.get('/hospitaldays', (req, res) => {
     })
 })
 
+router.get('/admitweek', (req, res) => {
+    db.any("SELECT DATE_TRUNC('week',admissiondate) AS  admitted_week, COUNT(patientid) \
+    AS number_of_patients FROM patient GROUP BY DATE_TRUNC('week',admissiondate);").then(rows=>{
+        res.json(rows)
+    }).catch(error=>{
+        console.log(error)
+    })
+})
+
+
 
 //Display all empty beds in wards of each hospital
 router.post('/searchward', (req, res) => {
