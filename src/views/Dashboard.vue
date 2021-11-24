@@ -122,7 +122,6 @@ export default {
     this.getICUBeds();
     this.getDischarged();
     this.getrecentadmitted();
-    this.gethospitalinfo();
   },
   
   methods: {
@@ -186,37 +185,8 @@ export default {
           console.error("There was an error!", error);
         });
     },
-    async gethospitalinfo() {
-      
-      await axios
-        .get("http://localhost:5000/db/hospitalinfo")
-        .then((response) => {
-          console.log(response.data)
-          this.hospitaldata = response.data
-        })
-        .catch((error) => {
-          this.errorMessage = error.message;
-          console.error("There was an error!", error);
-        });
-
-        let datasyntax = {
-          hospital: '',
-          patient: [],
-          ward: [],
-          staff: [],
-        }
-
-        for(let i = 0; i < this.hospitaldata.length; i ++){
-          if(tabledata.datasyntax.hospital != this.hospitaldata[i]['hospitalname']){
-            datasyntax.hospital = this.hospitaldata[i]['hospitalname']
-            this.tabledata.push(datasyntax)
-          }
-          // tabledata.datasyntax 
-
-        }       
 
 
-    },
   },
 };
 </script>
