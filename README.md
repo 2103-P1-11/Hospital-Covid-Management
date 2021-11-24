@@ -1,4 +1,4 @@
-# taskmanager
+# frontend
 
 ## Project setup
 ```

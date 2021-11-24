@@ -1,33 +1,39 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Task Tracker</router-link> |
-    <router-link to="/hospital">Hospital</router-link> |  
-    <router-link to="/employee">Employee</router-link> |
-    <router-link to="/bed">Bed</router-link> |
-    <router-link to="/patient">Patient</router-link>
-  </div>
-  <router-view/>
+  <v-app id="app">
+    <v-container fluid>
+      <toolbar/>
+      <v-row>
+        <v-col cols="2">
+          <sidebar/>
+        </v-col>
+        <v-col cols="10">
+          <router-view/>
+        </v-col>
+      </v-row>
+    </v-container>
+  </v-app>
 </template>
 
-<style>
+<script>
+import sidebar from './components/sidebar.vue'
+import toolbar from './components/toolbar.vue'
+
+export default {
+  components:{
+    sidebar,
+    toolbar,
+  }
+}
+</script>
+
+<style lang="scss">
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
+  height: 100vh;
+  background: linear-gradient(180deg, #37a0a0 50%, #ffffff 50%);
 }
 
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
 </style>
