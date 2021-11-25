@@ -19,6 +19,28 @@ router.get('/getavgdays', (req, res) => {
     })
 })
 
+router.get('/statusall', async (req, res) => {
+    try {
+        //Do SQL query
+        const getData = await db.query("Select * from status;")
+        return res.json(getData)
+        
+    } catch (e) {
+        console.error(e.message)
+    }
+})
+
+router.get('/nokall', async (req, res) => {
+    try {
+        //Do SQL query
+        const getData = await db.query("Select * from NOK;")
+        return res.json(getData)
+        
+    } catch (e) {
+        console.error(e.message)
+    }
+})
+
 // router.post('/newpatient', async (req, res) => {
 //     try {
 //         // parse request body
