@@ -73,9 +73,14 @@ export default {
           icon: "mdi-clipboard-account-outline",
           link: "/patient",
         },
+        {
+          title: "Swab Results",
+          icon: "mdi-clipboard-account-outline",
+          link: "/swabs",
+        },
       ],
       documentation: [
-        { title: "Datasets", icon: "mdi-poll", link: "#" },
+        { title: "Datasets", icon: "mdi-poll", link: "/datasets" },
       ],
     };
   },

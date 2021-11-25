@@ -25,6 +25,16 @@ const routes = [
     name: 'Hospital',
     component: () => import(/* webpackChunkName: "about" */ '../views/Hospital.vue')
   },
+  {
+    path: '/swabs',
+    name: 'Swabs',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Swabs.vue')
+  },
+  {
+    path: '/datasets',
+    name: 'Datasets',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Datasets.vue')
+  },
   // {
   //   path: '/test',
   //   name: 'test',
