@@ -1,6 +1,15 @@
 <template>
   <div>
     <div class="header">
+      <v-row align="center">
+        <v-col cols="12" sm="6">
+          <v-select label="Hospital" outlined :items="hospitalDetails" name="hospital" item-text="hospitalname" color="white"></v-select>
+        </v-col>
+        
+      <v-btn> Select hospital </v-btn>
+      </v-row>
+    </div>
+    <div class="header">
       <v-row align="center" justify="space-between">
         <h1>Patient Management</h1>
         <v-dialog v-model="dialog" width="1200px">
