@@ -21,7 +21,7 @@
               </v-row>
               <v-flex class="wardOverview">
                 <v-card border="top" elevation="4" color="red" dark width="150px">
-                  <v-card-title background="rgb(205,26,87)"  class="text-center">
+                  <v-card-title background="rgb(205,26,87)"  class="textnpm -center">
                     <h3>ICU</h3><v-spacer></v-spacer>
                   </v-card-title>
                   <!--Avaliable bed value!-->
@@ -180,20 +180,48 @@
         <v-card-text><v-icon>mdi-arrow-up</v-icon>{{recentadmitted}} for this week</v-card-text>
       </v-card>
     </v-flex>
-    
-    <v-data-table 
-      :headers="headers"
-      :items="patientdata"
-      class="elevation-1"
-    >
-      <template v-slot:items="props">
-        <td>{{ props.item.patientname }}</td>
-        <td class="text-xs-right">{{ props.item.admissiondate }}</td>
-        <td class="text-xs-right">{{ props.item.discharge }}</td>
-        <td class="text-xs-right">{{ props.item.dischargedate }}</td>
-        <td class="text-xs-right">{{ props.item.discharge }}</td>
-      </template>
-    </v-data-table>
+
+     <v-flex class="hospitaltable">
+      <v-row>
+        <v-col cols="8">
+          <v-data-table :headers="headers" :items="patientdata" class="elevation-1">
+          <template v-slot:top>
+            <v-toolbar dark dense>
+              <v-toolbar-title>Patient Information</v-toolbar-title>
+            </v-toolbar>
+          </template>
+
+            <template v-slot:items="props">
+              <td>{{ props.item.patientname }}</td>
+              <td class="text-xs-right">{{ props.item.admissiondate }}</td>
+              <td class="text-xs-right">{{ props.item.discharge }}</td>
+              <td class="text-xs-right">{{ props.item.dischargedate }}</td>
+              <td class="text-xs-right">{{ props.item.discharge }}</td>
+            </template>
+          </v-data-table>
+        </v-col>
+         <v-col cols="4">
+          <v-card tile class="mx-auto" max-width="500">
+            <v-toolbar dark dense>
+              <v-toolbar-title>Patient Possible Relocation</v-toolbar-title>
+            </v-toolbar>
+            <v-list-item-content>
+              <v-list-item-subtitle>Patient ID</v-list-item-subtitle>
+              <v-list-item-subtitle>Current Ward</v-list-item-subtitle>
+              <v-list-item-subtitle>Status</v-list-item-subtitle>
+              <v-list-item-subtitle>Possible Relocation</v-list-item-subtitle>
+            </v-list-item-content>
+            <v-list-item-content >
+              <v-list-item-subtitle>#1000</v-list-item-subtitle>
+              <v-list-item-subtitle>Ward B1</v-list-item-subtitle>
+              <v-list-item-subtitle>Severe</v-list-item-subtitle>
+              <v-list-item-subtitle>ICU</v-list-item-subtitle>
+            </v-list-item-content>
+          </v-card>
+        </v-col>
+      </v-row>
+      
+     </v-flex>
   </div>
 </template>
 
