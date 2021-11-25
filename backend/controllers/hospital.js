@@ -27,4 +27,26 @@ router.get('/wardbreakdown', async (req, res) => {
     }
 })
 
+router.get('/allwards', async (req, res) => {
+    try {
+        //Do SQL query
+        const getData = await db.query("Select * from ward;")
+        return res.json(getData)
+        
+    } catch (e) {
+        console.error(e.message)
+    }
+})
+
+router.get('/allbeds', async (req, res) => {
+    try {
+        //Do SQL query
+        const getData = await db.query("Select * from bed;")
+        return res.json(getData)
+        
+    } catch (e) {
+        console.error(e.message)
+    }
+})
+
 module.exports = router;

@@ -80,7 +80,7 @@ export default {
         },
       ],
       documentation: [
-        { title: "Datasets", icon: "mdi-poll", link: "/datasets" },
+        { title: "Tables", icon: "mdi-poll", link: "/tables" },
       ],
     };
   },

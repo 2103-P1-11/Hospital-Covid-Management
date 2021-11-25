@@ -56,13 +56,13 @@
 import axios from "axios";
 
 export default {
-  name: "Patient",
+  name: "Swabs",
   components: {},
   data() {
     return {
-      dialog: false,
-      hospital: null,
-      hospitalDetails: [],
+      // dialog: false,
+      // hospital: null,
+      // hospitalDetails: [],
       swabdata: [],
       hrwdata:[],
       headers: [
