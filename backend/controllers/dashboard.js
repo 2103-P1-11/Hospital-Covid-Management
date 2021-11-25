@@ -95,7 +95,17 @@ router.get('/admitweek', (req, res) => {
     })
 })
 
-
+//Swab data
+router.get('/swaball', async (req, res) => {
+    try {
+        //Do SQL query
+        const getData = await db.query("Select swab.swabid, swab.swabresult, swab.administertime, swab.patientid, swab.staffid from swab;")
+        return res.json(getData)
+        
+    } catch (e) {
+        console.error(e.message)
+    }
+})
 
 //Display all empty beds in wards of each hospital
 router.post('/searchward', (req, res) => {
@@ -138,5 +148,6 @@ router.post('/check', async (req, res) => {
         console.error(e.message)
     }
 })
+
 
 module.exports = router;

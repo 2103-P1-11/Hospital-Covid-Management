@@ -27,5 +27,4 @@ router.get('/wardbreakdown', async (req, res) => {
     }
 })
 
-
 module.exports = router;
