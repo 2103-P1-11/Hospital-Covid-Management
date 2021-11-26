@@ -3,10 +3,9 @@
     <div class="header">
       <v-row align="center">
         <v-col cols="12" sm="6">
-          <v-select label="Hospital" outlined :items="hospitalDetails" name="hospital" item-text="hospitalname" color="white"></v-select>
+          <v-select label="Hospital" outlined :items="hospitalDetails" name="hospital" item-text="hospitalname" color="white" dense></v-select>
         </v-col>
-        
-      <v-btn> Select hospital </v-btn>
+          <v-btn> Select hospital </v-btn>
       </v-row>
     </div>
     <div class="header">
@@ -14,7 +13,7 @@
         <h1>Patient Management</h1>
         <v-dialog v-model="dialog" width="1200px">
           <template v-slot:activator="{ on, attrs }">
-            <v-btn color="red lighten-4" v-bind="attrs" v-on="on">
+            <v-btn color="white" v-bind="attrs" v-on="on">
               Add patients<v-icon>mdi-plus-box-outline</v-icon>
             </v-btn>
           </template>
@@ -29,50 +28,130 @@
                 </v-col>
               </v-row>
               <v-flex class="wardOverview">
-                <v-card border="top" elevation="4" color="red" dark width="150px">
-                  <v-card-title background="rgb(205,26,87)"  class="textnpm -center">
+                <v-card border="top" elevation="4" color="red" dark width="200px" >
+                  <v-card-title class="textnpm -center" >
                     <h3>ICU</h3><v-spacer></v-spacer>
                   </v-card-title>
                   <!--Avaliable bed value!-->
-                  <v-card-subtitle class="text-center">8 <br/> Available Beds</v-card-subtitle>
+                  <v-card-subtitle class="text-center"><h2>8</h2>  Available Beds</v-card-subtitle>
+                  <v-row justify="center">
+                    <v-btn @click="dialog2 = !dialog2">Select Ward </v-btn>
+                  </v-row>
                 </v-card>
                 <v-spacer></v-spacer>
-                <v-card border="top" elevation="4" color="red" dark width="200px">
-                  <v-card-title background="rgb(205,26,87)" class="justify-center">
+                <v-card border="top" elevation="4" color="light-blue darken-3" dark width="200px">
+                  <v-card-title class="justify-center">
                     <h3>Ward A</h3><v-spacer></v-spacer>
                   </v-card-title>
                   <!--Avaliable bed value!-->
-                  <v-card-subtitle class="text-center">7 Available Beds</v-card-subtitle>
+                  <v-card-subtitle class="text-center"><h2>8</h2>   Available Beds</v-card-subtitle>
+                  <v-row justify="center">
+                    <v-btn @click="dialog2 = !dialog2">Select Ward </v-btn>
+                  </v-row>
                 </v-card>
                 <v-spacer></v-spacer>
-                 <v-card border="top" elevation="4" color="red" dark width="200px">
-                  <v-card-title background="rgb(205,26,87)" class="justify-center">
+                 <v-card border="top" elevation="4" color="light-blue darken-3" dark width="200px">
+                  <v-card-title class="justify-center">
                     <h3>Ward B1</h3><v-spacer></v-spacer>
                   </v-card-title>
                   <!--Avaliable bed value!-->
-                  <v-card-subtitle class="text-center">8 Available Beds</v-card-subtitle>
+                  <v-card-subtitle class="text-center"><h2>8</h2>   Available Beds</v-card-subtitle>
+                  <v-row justify="center">
+                    <v-btn @click="dialog2 = !dialog2">Select Ward </v-btn>
+                  </v-row>
                 </v-card>
                 <v-spacer></v-spacer>
-                 <v-card border="top" elevation="4" color="red" dark width="200px">
-                  <v-card-title background="rgb(205,26,87)" class="justify-center">
+                 <v-card border="top" elevation="4" color="light-blue darken-3" dark width="200px">
+                  <v-card-title class="justify-center">
                     <h3>Ward B2</h3><v-spacer></v-spacer>
                   </v-card-title>
                   <!--Avaliable bed value!-->
-                  <v-card-subtitle class="text-center">8 Available Beds</v-card-subtitle>
+                  <v-card-subtitle class="text-center"><h2>8</h2>  Available Beds</v-card-subtitle>
+                  <v-row justify="center">
+                    <v-btn @click="dialog2 = !dialog2">Select Ward </v-btn>
+                  </v-row>
                 </v-card>
                 <v-spacer></v-spacer>
-                 <v-card border="top" elevation="4" color="red" dark width="200px">
-                  <v-card-title background="rgb(205,26,87)" class="justify-center">
+                 <v-card border="top" elevation="4" color="light-blue darken-3" dark width="200px">
+                  <v-card-title class="justify-center">
                     <h3>Ward C</h3><v-spacer></v-spacer>
                   </v-card-title>
                   <!--Avaliable bed value!-->
-                  <v-card-subtitle class="text-center">8 Available Beds</v-card-subtitle>
+                  <v-card-subtitle class="text-center"><h2>8</h2>  Available Beds</v-card-subtitle>
+                  <v-row justify="center">
+                    <v-btn @click="dialog2 = !dialog2">Select Ward </v-btn>
+                  </v-row>
                 </v-card>
                 
-              </v-flex>
+              </v-flex><br/>
+              <v-row justify="end">
+                    <v-btn @click="dialog = false" text color="green">Close </v-btn>
+                  </v-row>
             </v-container>
           </v-card>
         </v-dialog>
+        <v-dialog v-model="dialog2">
+          <v-card>
+            <v-card-title>
+            <span class="text-h5">Patient Information</span>
+          </v-card-title>
+          <v-card-text>
+            <v-container>
+              <v-row>
+                <v-col cols="12" sm="6"  md="4">
+                  <v-text-field label="Hospital*" disabled></v-text-field>
+                </v-col>
+                <v-col cols="12" sm="6"  md="4">
+                  <v-text-field label="Ward*" disabled></v-text-field>
+                </v-col>
+                <v-col cols="12" sm="6" md="4">
+                  <v-text-field label="Name" hint="Patient's Full Name" required></v-text-field>
+                </v-col>
+                <v-col cols="12" sm="6" md="4">
+                  <label for="admissiondatepicker">Admission Date</label>
+                  <!-- Date not working yet!-->
+                  <datepicker :value="date" @click="selectAdmissionDate()" border="top" required></datepicker>
+                  <small>Admission Date:{{ admissiondateval }}</small>
+                </v-col>
+                <v-col cols="12" sm="6" md="4">
+                  <label for="dischargedatepicker">Discharged Date</label>
+                  <!-- Date not working yet!-->
+                  <datepicker :value="date" @click="selectAdmissionDate()"></datepicker>
+                  <small>*Do not enter date if patient is yet to be Discharged:{{ dischargedate }}</small>
+                </v-col>
+                <v-col cols="12" sm="6">
+                  <v-select :items="['Swab Negative', 'Mild Symptoms', 'Moderate Symptoms', 'Severe Symptoms']" label="Status*" required></v-select>
+                </v-col>
+                
+              </v-row>
+                  <v-divider inset></v-divider>
+                  <br/>
+                  <h2>Next Of Kin (NOK) Information</h2>
+              <v-row>
+                  <v-col cols="12" sm="6" md="4">
+                     <v-text-field label="nokName" hint="Next of Kin's Full Name" required></v-text-field>
+                  </v-col>
+                  <v-col cols="12" sm="6" md="4">
+                     <v-text-field label="nokContact" hint="Next of Kin's Contacts" required></v-text-field>
+                  </v-col>
+                  <v-col cols="12" sm="6" md="4">
+                     <v-text-field label="nokEmail" hint="Next of Kin's Email" required></v-text-field>
+                  </v-col>
+              </v-row>
+            </v-container>
+            <small>*indicates required field</small>
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn color="blue darken-1" @click="dialog2 = false;"> Close</v-btn>
+            <v-btn color="green" @click="dialog2 = false; dialog = false; alertsuccess = true"> Add </v-btn>
+          </v-card-actions>
+        </v-card>
+        <v-alert v-model="alertsuccess" border="bottom" color="pink darken-1" dark>
+          I'm an alert with a bottom border and pink color
+        </v-alert>
+        </v-dialog>
+          
       </v-row>
       <!--<v-btn class="addBtn" color="red lighten-3" align="center">
         Add Patients<v-icon>mdi-plus-box-outline</v-icon>
@@ -236,15 +315,20 @@
 
 <script>
 import axios from 'axios'
+import Datepicker from 'vuejs-datepicker'
 
 export default {
   name:'Patient',
   components: {
+    Datepicker
     
   },
   data() {
     return {
       dialog: false,
+      dialog2:false,
+      date:'',
+      admissiondateval:'',
       hospital: null,
       hospitalDetails:[],
       patientdata: [],
@@ -294,6 +378,10 @@ export default {
     },
     methodOne(){
       console.log(this.test)
+    },
+    
+    selectAdmissionDate() {
+      this.admissiondateval = this.date;
     }
     
 
