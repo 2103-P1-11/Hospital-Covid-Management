@@ -10,10 +10,10 @@
         width="228px"
       >
         <v-card-title>
-          <h3>ADMITTED</h3>
+          <h3>{{ availbedcount }}</h3>
           <v-spacer></v-spacer><v-icon>mdi-heart-plus-outline</v-icon>
         </v-card-title>
-        <v-card-subtitle>{{ availbedcount }} Patients </v-card-subtitle>
+        <v-card-subtitle>Patients Admitted</v-card-subtitle>
         <v-card-text
           ><v-icon>mdi-arrow-up</v-icon>{{ recentadmitted }} for this
           week</v-card-text
@@ -30,11 +30,11 @@
         width="228px"
       >
         <v-card-title>
-          <h3>HEALED</h3>
+          <h3>{{ patientdischargenumthisweek }}</h3>
           <v-spacer></v-spacer><v-icon>mdi-account-heart</v-icon>
         </v-card-title>
         <v-card-subtitle
-          >{{ patientdischargenumthisweek }} Patients
+          >Patients Discharged
         </v-card-subtitle>
 
         <v-card-text
@@ -61,10 +61,10 @@
         width="228px"
       >
         <v-card-title>
-          <h3>AVG DAYS</h3>
+          <h3>{{ (Math.round((avgdays + Number.EPSILON) * 100)/100) }} Days</h3>
           <v-spacer></v-spacer><v-icon>mdi-calendar-today</v-icon>
         </v-card-title>
-        <v-card-subtitle>{{ (Math.round((avgdays + Number.EPSILON) * 100)/100) }} Days </v-card-subtitle>
+        <v-card-subtitle>Average stay in hospital</v-card-subtitle>
         <v-card-text><v-icon
             v-if="avgdaysinaweek - avgdays > 0"
             >mdi-arrow-down</v-icon
@@ -85,17 +85,17 @@
         width="228px"
       >
         <v-card-title>
-          <h3>ALL</h3>
-          <v-spacer></v-spacer><v-icon>mdi-bed</v-icon>
-        </v-card-title>
-        <v-card-subtitle>
-          {{
+          <h3>{{
             Math.round(
               (fullbedcount /
                 (parseInt(availbedcount) + parseInt(fullbedcount))) *
                 100
             )
-          }}% Bed Occupied
+          }}%</h3>
+          <v-spacer></v-spacer><v-icon>mdi-bed</v-icon>
+        </v-card-title>
+        <v-card-subtitle>
+           Total Beds Occupied
         </v-card-subtitle>
         <v-card-text><v-icon>mdi-history</v-icon> Updated recently</v-card-text>
       </v-card>
@@ -109,17 +109,17 @@
         width="248px"
       >
         <v-card-title>
-          <h3>ICU</h3>
-          <v-spacer></v-spacer><v-icon>mdi-alert-box</v-icon>
-        </v-card-title>
-        <v-card-subtitle
-          >{{
+          <h3>{{
             Math.round(
               (fullicubedcount /
                 (parseInt(availicubedcount) + parseInt(fullicubedcount))) *
                 100
             )
-          }}% Beds Occupied
+          }}% </h3>
+          <v-spacer></v-spacer><v-icon>mdi-alert-box</v-icon>
+        </v-card-title>
+        <v-card-subtitle
+          >ICU Beds Occupied
         </v-card-subtitle>
         <v-card-text><v-icon>mdi-history</v-icon> Updated recently</v-card-text>
       </v-card>
