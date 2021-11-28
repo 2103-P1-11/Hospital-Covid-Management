@@ -3,17 +3,26 @@
     <div class="header">
       <v-row align="center">
         <v-col cols="12" sm="6">
-          <v-select label="Hospital" outlined :items="hospitalDetails" name="hospital" item-text="hospitalname" color="white" dense></v-select>
+         <v-select
+              :items="hospitalDetails"
+              dense
+              @change="selectHospital()"
+              filled
+              item-text="hospitalname"
+              label="Select hospital"
+              color="white"
+              return-object
+            ></v-select>
         </v-col>
-          <v-btn> Select hospital </v-btn>
       </v-row>
     </div>
+    <div class="headerContent">
     <div class="header">
       <v-row align="center" justify="space-between">
         <h1>Patient Management</h1>
         <v-dialog v-model="dialog" width="1200px">
           <template v-slot:activator="{ on, attrs }">
-            <v-btn color="white" v-bind="attrs" v-on="on">
+            <v-btn color="white" v-bind="attrs" v-on="on" @click="showSaveBtn = true">
               Add patients<v-icon>mdi-plus-box-outline</v-icon>
             </v-btn>
           </template>
@@ -144,100 +153,15 @@
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn color="blue darken-1" @click="dialog2 = false;"> Close</v-btn>
-            <v-btn color="green" @click="dialog2 = false; dialog = false; alertsuccess = true"> Add </v-btn>
+            <v-btn v-show="showSaveBtn" color="green" @click="dialog2 = false; dialog = false; alertsuccess = true" @> Save </v-btn>
           </v-card-actions>
         </v-card>
-        <v-alert v-model="alertsuccess" border="bottom" color="pink darken-1" dark>
-          I'm an alert with a bottom border and pink color
+        <v-alert v-model="alertsuccess" border="bottom" color="green lighten-3" dark>
+          Patient added successfully.
         </v-alert>
         </v-dialog>
           
       </v-row>
-      <!--<v-btn class="addBtn" color="red lighten-3" align="center">
-        Add Patients<v-icon>mdi-plus-box-outline</v-icon>
-        </v-btn>
-        
-        <v-card-title>
-            <span class="text-h5">Patient Information</span>
-          </v-card-title>
-          <v-card-text>
-            <v-container>
-              <v-row>
-                <v-col cols="12" sm="6"  md="4">
-                  <v-text-field label="Patient Full name*" required></v-text-field>
-                </v-col>
-                <v-col cols="12" sm="6"  md="4">
-                  <v-text-field
-                    label="Legal middle name"
-                    hint="example of helper text only on focus"
-                  ></v-text-field>
-                </v-col>
-                <v-col cols="12" sm="6"  md="4">
-                  <v-text-field
-                    label="Legal last name*"
-                    hint="example of persistent helper text"
-                    persistent-hint
-                    required
-                  ></v-text-field>
-                </v-col>
-                <v-col cols="12">
-                  <v-text-field
-                    label="Email*"
-                    required
-                  ></v-text-field>
-                </v-col>
-                <v-col cols="12">
-                  <v-text-field
-                    label="Password*"
-                    type="password"
-                    required
-                  ></v-text-field>
-                </v-col>
-                <v-col
-                  cols="12"
-                  sm="6"
-                >
-                  <v-select
-                    :items="['0-17', '18-29', '30-54', '54+']"
-                    label="Age*"
-                    required
-                  ></v-select>
-                </v-col>
-                <v-col
-                  cols="12"
-                  sm="6"
-                >
-                  <v-autocomplete
-                    :items="['Skiing', 'Ice hockey', 'Soccer', 'Basketball', 'Hockey', 'Reading', 'Writing', 'Coding', 'Basejump']"
-                    label="Interests"
-                    multiple
-                  ></v-autocomplete>
-                </v-col>
-              </v-row>
-            </v-container>
-            <small>*indicates required field</small>
-          </v-card-text>
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn
-              color="blue darken-1"
-              text
-              @click="dialog = false"
-            >
-              Close
-            </v-btn>
-            <v-btn
-              color="blue darken-1"
-              text
-              @click="dialog = false"
-            >
-              Save
-            </v-btn>
-          </v-card-actions>
-        </v-card>
-    
-    Avaliable bed value!-->
-    
     </div>
     <v-flex class="overview">
       <v-card ripple shaped border="top" elevation="4" color="rgb(0,188,212)" dark width="280px">
@@ -268,24 +192,28 @@
         <v-card-text><v-icon>mdi-arrow-up</v-icon>{{recentadmitted}} for this week</v-card-text>
       </v-card>
     </v-flex>
-
+</div>
      <v-flex class="hospitaltable">
       <v-row>
         <v-col cols="8">
-          <v-data-table :headers="headers" :items="patientdata" class="elevation-1">
+          <v-data-table :headers="headers" :items="patientdata" :search="search" class="elevation-1">
           <template v-slot:top>
             <v-toolbar dark dense>
               <v-toolbar-title>Patient Information</v-toolbar-title>
             </v-toolbar>
+            <v-text-field
+                v-model="search"
+                label="Search"
+                class="mx-4"
+              ></v-text-field>  
+              
           </template>
-
-            <template v-slot:items="props">
-              <td>{{ props.item.patientname }}</td>
-              <td class="text-xs-right">{{ props.item.admissiondate }}</td>
-              <td class="text-xs-right">{{ props.item.discharge }}</td>
-              <td class="text-xs-right">{{ props.item.dischargedate }}</td>
-              <td class="text-xs-right">{{ props.item.discharge }}</td>
+          <!-- <template   v-slot:[`item.actions`]="{ item }"> !-->
+          <template v-slot:[`item.actions`]>
+            <v-icon small class="mr-2" @click="dialog2 = !dialog2"> mdi-pencil </v-icon>
+            <v-icon small  @click="dialog2 = !dialog2; showSaveBtn = !showSaveBtn "> mdi-dots-horizontal </v-icon>
             </template>
+                  
           </v-data-table>
         </v-col>
          <v-col cols="4">
@@ -327,6 +255,7 @@ export default {
     return {
       dialog: false,
       dialog2:false,
+      showSaveBtn: false,
       date:'',
       admissiondateval:'',
       hospital: null,
@@ -341,9 +270,10 @@ export default {
         },
         { text: 'ID', value: 'patientid' },
         { text: 'Admission Date', value: 'admissiondate' },
-        { text: 'Discharge Date', value: 'dischargedate' },
-        { text: 'Status Description', value: 'statusno' },
-        // { text: 'Next of Kin', value: 'kin' }
+        { text: 'Status', value: 'statusno' },
+        { text: 'NOK Name', value: 'kin' },
+        { text: 'NOK Contacts', value: 'kinContact' },
+         { text: 'Actions', value: 'actions', sortable: false },
       ],
     }
   },
