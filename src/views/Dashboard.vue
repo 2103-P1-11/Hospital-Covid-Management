@@ -208,6 +208,7 @@
 import axios from "axios";
 import chartInfected from "../charts/DailyCovidCases.vue"
 import totalInfected from "../charts/TotalCovidCases.vue"
+const url = "https://hospitaldb1-11.herokuapp.com"
 
 export default {
   name: "Dashboard",
@@ -267,7 +268,7 @@ export default {
     },
     async gethospitalisationdays() {
       await axios
-        .get("http://localhost:5000/db/hospitaldays")
+        .get(url + "/db/hospitaldays")
         .then((response) => {
           this.avgdays = response.data[0]['avg'];
         })
@@ -276,7 +277,7 @@ export default {
           console.error("There was an error!", error);
         });
         await axios
-        .get("http://localhost:5000/db/hospitaltotal")
+        .get(url + "/db/hospitaltotal")
         .then((response) => {
           this.avgdaysinaweek = response.data[0]['avg'];
         })
@@ -287,7 +288,7 @@ export default {
     },
     async getBeds() {
       await axios
-        .get("http://localhost:5000/db/bedstatus")
+        .get(url + "/db/bedstatus")
         .then((response) => {
           this.availbedcount = response.data[0]["total"];
           this.fullbedcount = response.data[1]["total"];
@@ -299,7 +300,7 @@ export default {
     },
     async getMostRecent() {
       await axios
-        .get("http://localhost:5000/db/mostrecent")
+        .get(url + "/db/mostrecent")
         .then((response) => {
           for (let i = 0; i < response.data.length; i++) {
             // get total seconds between the times
@@ -346,7 +347,7 @@ export default {
     },
     async getICUBeds() {
       await axios
-        .get("http://localhost:5000/db/icubedstatus")
+        .get(url + "/db/icubedstatus")
         .then((response) => {
           this.availicubedcount = response.data[0]["total"];
           this.fullicubedcount = response.data[1]["total"];
@@ -358,7 +359,7 @@ export default {
     },
     async getrecentadmitted() {
       await axios
-        .get("http://localhost:5000/db/recentadmit")
+        .get(url + "/db/recentadmit")
         .then((response) => {
           this.recentadmitted = response.data.length;
         })
@@ -374,7 +375,7 @@ export default {
       this.patientdischargenumlastweek = 0;
 
       await axios
-        .get("http://localhost:5000/db/alldischarge")
+        .get(url + "/db/alldischarge")
         .then((response) => {
           for (let i = 0; i < response.data.length; i++) {
             if (new Date(response.data[i]["dischargedate"]) >= d) {
@@ -393,7 +394,7 @@ export default {
     },
     async gethospitalinfo() {
       await axios
-        .get("http://localhost:5000/db/hospitalinfo")
+        .get("https://hospitaldb1-11.herokuapp.com/db/hospitalinfo")
         .then((response) => {
           this.hospitaldata = response.data;
         })

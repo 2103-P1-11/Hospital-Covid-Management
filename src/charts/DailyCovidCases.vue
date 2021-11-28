@@ -8,6 +8,7 @@
 </template>
 
 <script>
+const url = "https://hospitaldb1-11.herokuapp.com"
 import LineChart from './LineChart.vue'
 import axios from "axios";
 export default {
@@ -35,7 +36,7 @@ export default {
   async mounted () {
     this.loaded = false
     await axios
-        .get("http://localhost:5000/db/admitweek")
+        .get(url + "/db/admitweek")
         .then((response) => {
           this.admissiondata = response.data
           for (let i = 0; i < response.data.length; i ++){
