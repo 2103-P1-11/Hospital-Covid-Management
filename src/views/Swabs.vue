@@ -5,10 +5,18 @@
         <h1>Swab Results Management</h1>
       </div>
       <v-row>
-        <v-col cols="8">
-          <v-toolbar dark dense>
-            <v-toolbar-title>Swab Records</v-toolbar-title>
-          </v-toolbar>
+        <v-col cols="12">
+          <v-card-title style="background-color:white;">
+        Swab Results Management
+        <v-spacer></v-spacer>
+        <v-text-field
+          v-model="search"
+          append-icon="mdi-magnify"
+          label="Search"
+          single-line
+          hide-details
+        ></v-text-field>
+          </v-card-title>
           <v-data-table
             :headers="headers"
             :items="swabdata"
@@ -22,30 +30,6 @@
               <td class="text-xs-right">{{ props.item.staffid }}</td>
             </template>
           </v-data-table>
-        </v-col>
-        <v-col cols="4">
-          <v-card>
-            <v-toolbar dark dense>
-              <v-toolbar-title>Health Risk Warning</v-toolbar-title>
-            </v-toolbar>
-            <v-card-title> List of Wards </v-card-title>
-            <v-card-subtitle
-              >Wards with >1 staff tested COVID positive</v-card-subtitle
-            >
-            <v-card-text>
-              <v-data-table
-                :headers="hrwheaders"
-                :items="hrwdata"
-                class="elevation-1"
-              >
-                <template v-slot:items="props">
-                  <td>{{ props.item.hospitalid }}</td>
-                  <td class="text-xs-right">{{ props.item.wardid }}</td>
-                  <td class="text-xs-right">{{ props.item.positiveno }}</td>
-                </template>
-              </v-data-table>
-            </v-card-text>
-          </v-card>
         </v-col>
       </v-row>
     </v-container>

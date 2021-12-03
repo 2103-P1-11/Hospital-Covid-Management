@@ -32,8 +32,10 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
-  height: 100vh;
+  height: 100%;
+  // background-image: url("./assets/squidbg.jpg");
   background: linear-gradient(180deg, #37a0a0 50%, #ffffff 50%);
+  
 }
 
 </style>

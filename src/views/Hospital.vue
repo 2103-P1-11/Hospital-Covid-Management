@@ -7,22 +7,21 @@
         <v-row align="center">
           <v-col cols="6">
             <v-select
+            solo
+            outlined
               v-model="selectedanswer"
               :items="hospitaldataName"
-              dense
               @change="selectHospital()"
-              filled
               item-text="selectedanswer"
               label="Choose hospital"
-              color="white"
-              dark
+              
               return-object
             ></v-select>
           </v-col>
         </v-row>
       </div>
 
-      <div class="content">
+      <div class="content" style="margin-bottom:24px;">
         <v-flex class="overview">
           <v-spacer></v-spacer>
           <v-card
@@ -174,7 +173,6 @@
         <button @click="methodOne()">Click me</button>
         <div>You selected {{ answer }}</div> -->
       </div>
-    
     <v-card>
       <v-toolbar dark>
         <v-toolbar-title> Ward Information </v-toolbar-title>
