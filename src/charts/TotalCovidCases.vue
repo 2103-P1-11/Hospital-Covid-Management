@@ -23,7 +23,12 @@ export default {
       datasets: [
         {
           label: 'Total Covid Cases',
-          backgroundColor: 'Green',
+          backgroundColor: [
+                'rgba(54, 162, 235, 0.2)',
+            ],
+            borderColor: [
+                'rgba(54, 162, 235, 1)',
+            ],
           data: []
         },
         

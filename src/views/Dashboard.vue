@@ -1,5 +1,5 @@
 <template>
-  <v-main>
+  <v-container>
     <v-flex class="overview">
       <v-card
         ripple
@@ -201,14 +201,15 @@
         </v-col>
       </v-row>
     </v-flex>
-  </v-main>
+  </v-container>
 </template>
 
 <script>
 import axios from "axios";
 import chartInfected from "../charts/DailyCovidCases.vue"
 import totalInfected from "../charts/TotalCovidCases.vue"
-const url = "https://hospitaldb1-11.herokuapp.com"
+// const url = "https://hospitaldb1-11.herokuapp.com"
+const url = "http://localhost:5000"
 
 export default {
   name: "Dashboard",

@@ -22,7 +22,12 @@ export default {
       datasets: [
         {
           label: 'Daily Covid Cases',
-          backgroundColor: 'Green',
+          backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+            ],
           data: []
         },
         

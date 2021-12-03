@@ -11,6 +11,17 @@ router.get('/all', (req, res) => {
     })
 })
 
+router.get('/bedsavailable', (req, res) => {
+    db.any("Select hospital.hospitalid, ward.wardtype, count(bedstatus) as availablebed from bed left join ward \
+    on bed.wardid = ward.wardid left join hospital on hospital.hospitalid = ward.hospitalid\
+    where bedstatus = 0 group by hospital.hospitalid, ward.wardtype order by hospital.hospitalid asc").then(rows=>{
+        // console.log(rows);
+        res.json(rows)
+    }).catch(error=>{
+        console.log(error)
+    })
+})
+
 router.get('/getavgdays', (req, res) => {
     db.any("Select patient.patientid, DATE_PART('day', patient.dischargedate - admissiondate) from patient where dischargedate > CURRENT_DATE;").then(rows=>{
         res.json(rows)

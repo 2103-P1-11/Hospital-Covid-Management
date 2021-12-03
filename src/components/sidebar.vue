@@ -75,7 +75,7 @@ export default {
         },
         {
           title: "Swab Results",
-          icon: "mdi-clipboard-account-outline",
+          icon: "mdi-test-tube",
           link: "/swabs",
         },
       ],

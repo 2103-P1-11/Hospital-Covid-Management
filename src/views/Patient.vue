@@ -3,16 +3,7 @@
     <div class="header">
       <v-row align="center">
         <v-col cols="12" sm="6">
-         <v-select
-              :items="hospitalDetails"
-              dense
-              @change="selectHospital()"
-              filled
-              item-text="hospitalname"
-              label="Select hospital"
-              color="white"
-              return-object
-            ></v-select>
+          <v-select label="Hospital" outlined v-model="firstOption" :items="hospitalDetails" name="hospital" item-text="hospitalname" @change="selectHospital()" return-object></v-select>
         </v-col>
       </v-row>
     </div>
@@ -20,7 +11,7 @@
     <div class="header">
       <v-row align="center" justify="space-between">
         <h1>Patient Management</h1>
-        <v-dialog v-model="dialog" width="1200px">
+        <v-dialog v-model="firstbox" width="1200px">
           <template v-slot:activator="{ on, attrs }">
             <v-btn color="white" v-bind="attrs" v-on="on" @click="showSaveBtn = true">
               Add patients<v-icon>mdi-plus-box-outline</v-icon>
@@ -33,85 +24,49 @@
             <v-container fluid>
               <v-row>
                 <v-col cols="12" sm="6">
-                  <v-select label="Hospital" outlined :items="hospitalDetails" name="hospital" item-text="hospitalname"></v-select>
+                  <v-select label="Hospital" outlined v-model="secondOption" :items="hospitalDetails" name="hospital" item-text="hospitalname" @change="showWards"></v-select>
                 </v-col>
               </v-row>
-              <v-flex class="wardOverview">
-                <v-card border="top" elevation="4" color="red" dark width="200px" >
-                  <v-card-title class="textnpm -center" >
-                    <h3>ICU</h3><v-spacer></v-spacer>
+              <v-row>
+              <v-flex class="wardOverview" v-for="ward in wardinfo" :key="ward.wardid">
+                <v-card v-if="chosenHospital" border="top" elevation="4" :color="ward.wardtype==='ICU' ? 'red' : 'blue'" dark width="200px" >
+                  <v-card-title justify="center">
+                    <h3>{{ward.wardtype}} {{ward.wardid}}</h3><v-spacer></v-spacer>
                   </v-card-title>
                   <!--Avaliable bed value!-->
-                  <v-card-subtitle class="text-center"><h2>8</h2>  Available Beds</v-card-subtitle>
+                  <v-card-subtitle class="text-center"><h2>{{ward.availablebed}}</h2>  Available Beds</v-card-subtitle>
                   <v-row justify="center">
-                    <v-btn @click="dialog2 = !dialog2">Select Ward </v-btn>
+                    <v-btn @click="showWardBox(ward.wardid)">Select Ward </v-btn>
                   </v-row>
                 </v-card>
-                <v-spacer></v-spacer>
-                <v-card border="top" elevation="4" color="light-blue darken-3" dark width="200px">
-                  <v-card-title class="justify-center">
-                    <h3>Ward A</h3><v-spacer></v-spacer>
-                  </v-card-title>
-                  <!--Avaliable bed value!-->
-                  <v-card-subtitle class="text-center"><h2>8</h2>   Available Beds</v-card-subtitle>
-                  <v-row justify="center">
-                    <v-btn @click="dialog2 = !dialog2">Select Ward </v-btn>
-                  </v-row>
-                </v-card>
-                <v-spacer></v-spacer>
-                 <v-card border="top" elevation="4" color="light-blue darken-3" dark width="200px">
-                  <v-card-title class="justify-center">
-                    <h3>Ward B1</h3><v-spacer></v-spacer>
-                  </v-card-title>
-                  <!--Avaliable bed value!-->
-                  <v-card-subtitle class="text-center"><h2>8</h2>   Available Beds</v-card-subtitle>
-                  <v-row justify="center">
-                    <v-btn @click="dialog2 = !dialog2">Select Ward </v-btn>
-                  </v-row>
-                </v-card>
-                <v-spacer></v-spacer>
-                 <v-card border="top" elevation="4" color="light-blue darken-3" dark width="200px">
-                  <v-card-title class="justify-center">
-                    <h3>Ward B2</h3><v-spacer></v-spacer>
-                  </v-card-title>
-                  <!--Avaliable bed value!-->
-                  <v-card-subtitle class="text-center"><h2>8</h2>  Available Beds</v-card-subtitle>
-                  <v-row justify="center">
-                    <v-btn @click="dialog2 = !dialog2">Select Ward </v-btn>
-                  </v-row>
-                </v-card>
-                <v-spacer></v-spacer>
-                 <v-card border="top" elevation="4" color="light-blue darken-3" dark width="200px">
-                  <v-card-title class="justify-center">
-                    <h3>Ward C</h3><v-spacer></v-spacer>
-                  </v-card-title>
-                  <!--Avaliable bed value!-->
-                  <v-card-subtitle class="text-center"><h2>8</h2>  Available Beds</v-card-subtitle>
-                  <v-row justify="center">
-                    <v-btn @click="dialog2 = !dialog2">Select Ward </v-btn>
-                  </v-row>
-                </v-card>
-                
-              </v-flex><br/>
+              </v-flex>
+              </v-row>
               <v-row justify="end">
-                    <v-btn @click="dialog = false" text color="green">Close </v-btn>
+                    <v-btn @click="firstbox = false" text color="green">Close </v-btn>
                   </v-row>
             </v-container>
           </v-card>
         </v-dialog>
-        <v-dialog v-model="dialog2">
+
+        <v-dialog v-model="secondbox">
           <v-card>
+          <v-alert v-if="showAlertBox" :color="alert.color" dark>
+          {{alert.text}}
+        </v-alert>
             <v-card-title>
-            <span class="text-h5">Patient Information</span>
-          </v-card-title>
+            <h5>Patient Information</h5>
+            </v-card-title>
           <v-card-text>
             <v-container>
               <v-row>
-                <v-col cols="12" sm="6"  md="4">
-                  <v-text-field label="Hospital*" disabled></v-text-field>
+                <v-col cols="12" sm="4"  md="4">
+                  <v-text-field label="Hospital" disabled :value="hospitalChoice"></v-text-field>
                 </v-col>
-                <v-col cols="12" sm="6"  md="4">
-                  <v-text-field label="Ward*" disabled></v-text-field>
+                <v-col cols="12" sm="4"  md="4">
+                  <v-text-field label="Ward Type" disabled :value="wardTypeChoice"></v-text-field>
+                </v-col>
+                <v-col cols="12" sm="4"  md="4">
+                  <v-text-field label="Ward ID" disabled :value="wardIdChoice"></v-text-field>
                 </v-col>
                 <v-col cols="12" sm="6" md="4">
                   <v-text-field label="Name" hint="Patient's Full Name" required></v-text-field>
@@ -152,44 +107,64 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="blue darken-1" @click="dialog2 = false;"> Close</v-btn>
-            <v-btn v-show="showSaveBtn" color="green" @click="dialog2 = false; dialog = false; alertsuccess = true" @> Save </v-btn>
+            <v-btn color="blue darken-1" @click="secondbox = false;"> Close</v-btn>
+            <v-btn v-show="showSaveBtn" color="green" @click="secondbox = false; firstbox = false;" @> Save </v-btn>
           </v-card-actions>
         </v-card>
-        <v-alert v-model="alertsuccess" border="bottom" color="green lighten-3" dark>
-          Patient added successfully.
-        </v-alert>
         </v-dialog>
           
       </v-row>
     </div>
     <v-flex class="overview">
       <v-card ripple shaped border="top" elevation="4" color="rgb(0,188,212)" dark width="280px">
-        <v-card-title background="rgb(205,26,87)">
-          <h3>32 Beds</h3><v-spacer></v-spacer><v-icon>mdi-bed-outline</v-icon>
+        <v-card-title>
+          <v-col>
+          <v-row>
+          <h3>{{numberoficu + numberofavailbeds}} Beds Available</h3>
+          </v-row>
+          <v-row>
+          <h5>{{numberoficu}} ICU Beds</h5><v-spacer></v-spacer><v-icon color="red">mdi-bed-outline</v-icon>
+          </v-row>
+          <v-row>
+          <h5>{{numberofavailbeds}} Non-ICU Beds</h5><v-spacer></v-spacer><v-icon>mdi-bed-outline</v-icon>
+          </v-row>
+          </v-col>
         </v-card-title>
-        <!--Avaliable bed value!-->
-        <v-card-subtitle>Number of Available Beds</v-card-subtitle>
-        <v-card-text><v-icon>mdi-arrow-up</v-icon>{{recentadmitted}} for this week</v-card-text>
       </v-card>
 
       <v-spacer></v-spacer>
       
       <v-card shaped border="top" elevation="4" color="rgb(139,195,74)" dark width="280px">
-        <v-card-title background="rgb(205,26,87)">
-          <h3>21 Patients</h3><v-spacer></v-spacer><v-icon>mdi-account-heart</v-icon>
+        <v-card-title>
+          <v-col>
+          <v-row>
+          <h3>Severity of Patients</h3>
+          </v-row>
+          <v-row>
+          <h5>{{numberofunwell}} Critical Conditions</h5><v-spacer></v-spacer><v-icon color="red">mdi-face-mask-outline</v-icon>
+          </v-row>
+          <v-row>
+          <h5>{{numberofwell}} Ready to Discharge</h5><v-spacer></v-spacer><v-icon>mdi-face-mask-outline</v-icon>
+          </v-row>
+          </v-col>
         </v-card-title>
-        <v-card-subtitle>Ready to be discharged</v-card-subtitle>
-        <v-card-text><v-icon>mdi-arrow-up</v-icon>{{recentadmitted}} for this week</v-card-text>
       </v-card>
       <v-spacer></v-spacer>
 
       <v-card shaped border="top" elevation="4" color="rgb(255,152,0)" dark width="280px">
         <v-card-title background="rgb(205,26,87)">
-          <h3>3 </h3><v-spacer></v-spacer><v-icon>mdi-swap-horizontal</v-icon>
+          <v-col>
+          <v-row>
+          <h3>Possible Relocation</h3>
+          </v-row>
+          <v-row>
+          <h5>{{transferhospital}} Transfer to Hospitals</h5><v-spacer></v-spacer><v-icon color="red">mdi-swap-horizontal</v-icon>
+          </v-row>
+          <v-row>
+          <h5>{{transferoutside}} Transfer to Morgue</h5><v-spacer></v-spacer><v-icon>mdi-swap-horizontal</v-icon>
+          </v-row>
+          </v-col>
         </v-card-title>
-        <v-card-subtitle>Possible relocation </v-card-subtitle>
-        <v-card-text><v-icon>mdi-arrow-up</v-icon>{{recentadmitted}} for this week</v-card-text>
       </v-card>
     </v-flex>
 </div>
@@ -210,8 +185,8 @@
           </template>
           <!-- <template   v-slot:[`item.actions`]="{ item }"> !-->
           <template v-slot:[`item.actions`]>
-            <v-icon small class="mr-2" @click="dialog2 = !dialog2"> mdi-pencil </v-icon>
-            <v-icon small  @click="dialog2 = !dialog2; showSaveBtn = !showSaveBtn "> mdi-dots-horizontal </v-icon>
+            <v-icon small class="mr-2" @click="secondbox = !secondbox"> mdi-pencil </v-icon>
+            <v-icon small  @click="secondbox = !secondbox; showSaveBtn = !showSaveBtn "> mdi-dots-horizontal </v-icon>
             </template>
                   
           </v-data-table>
@@ -244,6 +219,8 @@
 <script>
 import axios from 'axios'
 import Datepicker from 'vuejs-datepicker'
+// const url = "https://hospitaldb1-11.herokuapp.com"
+const url = "http://localhost:5000"
 
 export default {
   name:'Patient',
@@ -251,16 +228,31 @@ export default {
     Datepicker
     
   },
+  computed:{
+
+  },
   data() {
     return {
-      dialog: false,
-      dialog2:false,
+      firstOption: '',
+      secondOption: '',
+      search: '',
+      firstbox: false,
+      secondbox:false,
+      chosenHospital: false,
       showSaveBtn: false,
       date:'',
       admissiondateval:'',
+      numberofavailbeds: 0,
+      numberoficu: 0,
       hospital: null,
       hospitalDetails:[],
       patientdata: [],
+      wardinfo: [],
+      showAlertBox: true,
+      alert: {
+        color: 'green lighten-3',
+        text: 'example',
+      },
       headers: [
         {
           text: 'Patient Name',
@@ -280,10 +272,91 @@ export default {
   created() {
     this.getPatients()
     this.getHospital()
+    this.selectHospital()
   },
   methods: {
+    async selectHospital(){
+      await axios.get(url + "/patient/bedsavailable")
+    .then(response => {
+
+      this.numberoficu = 0
+      this.numberofavailbeds = 0
+      
+      for (var i = 0; i < response.data.length; i ++){
+        if(response.data[i].hospitalid == this.firstOption.hospitalid){
+          if(response.data[i].wardtype == "ICU"){
+            this.numberoficu += parseInt(response.data[i].availablebed)
+          }else{
+            this.numberofavailbeds += parseInt(response.data[i].availablebed)
+          }
+        }
+        
+      }
+    })
+    .catch(error => {
+      this.errorMessage = error.message;
+      console.error("There was an error!", error);
+    });
+    },
+    async showWards(){
+      this.chosenHospital = true;
+    this.wardinfo = [];
+      await axios
+        .post(url + "/hos/getwardinfo", {
+          hospitalname: this.secondOption,
+        })
+        .then((response) => {
+          // this.wardinfo = response.data
+          let entered = "";
+          let counter = -1;
+          for (let i = 0; i < response.data.length; i++) {
+            if (entered != response.data[i]["wardid"]) {
+              entered = response.data[i]["wardid"];
+              if (response.data[i]["bedstatus"] == 0) {
+                this.wardinfo.push({
+                  hospitalname: response.data[i]["hospitalname"],
+                  staffid1: response.data[i]["staffid1"],
+                  staffid2: response.data[i]["staffid2"],
+                  availablebed: response.data[i]["amount"],
+                  totalbed: response.data[i]["amount"],
+                  wardtype: response.data[i]["wardtype"],
+                  wardid: response.data[i]["wardid"],
+                });
+              } else {
+                this.wardinfo.push({
+                  hospitalname: response.data[i]["hospitalname"],
+                  staffid1: response.data[i]["staffid1"],
+                  staffid2: response.data[i]["staffid2"],
+                  availablebed: 0,
+                  totalbed: response.data[i]["amount"],
+                  wardtype: response.data[i]["wardtype"],
+                  wardid: response.data[i]["wardid"],
+                });
+              }
+
+              counter++;
+            } else {
+              // this.wardinfo[counter].availablebed = parseInt(this.wardinfo[counter].availablebed) + parseInt(response.data[i]['amount'])
+              this.wardinfo[counter].totalbed =
+                parseInt(this.wardinfo[counter].totalbed) +
+                parseInt(response.data[i]["amount"]);
+            }
+            this.wardinfo[counter].occupancy =
+              100 -
+              Math.round(
+                (this.wardinfo[counter].availablebed /
+                  this.wardinfo[counter].totalbed) *
+                  100
+              );
+          }
+          
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    },
     async getPatients(){
-      await axios.get("http://localhost:5000/patient/all")
+      await axios.get(url + "/patient/all")
     .then(response => {
       console.log(response.data)
       this.patientdata = response.data
@@ -294,11 +367,11 @@ export default {
     });
     },
      async getHospital(){
-       await axios.get("http://localhost:5000/hos/all")
+       await axios.get(url + "/hos/all")
     .then(response => {
       console.log(response.data)
       this.hospitalDetails = response.data
-     // this.hospitalDetails.push(response.data[i])
+      this.firstOption = this.hospitalDetails[0]
       
     })
     .catch(error => {
@@ -306,13 +379,71 @@ export default {
       console.error("There was an error!", error);
     });
     },
-    methodOne(){
-      console.log(this.test)
+    showWardBox(id){
+      console.log(id)
+      this.secondbox = true
     },
     
     selectAdmissionDate() {
       this.admissiondateval = this.date;
-    }
+    },
+    async getWardInfo() { 
+      this.wardinfo = [];
+      await axios
+        .post(url + "/hos/getwardinfo", {
+          hospitalname: this.selectedanswer.replaceAll("'", "''"),
+        })
+        .then((response) => {
+          // this.wardinfo = response.data
+          let entered = "";
+          let counter = -1;
+          for (let i = 0; i < response.data.length; i++) {
+            if (entered != response.data[i]["wardid"]) {
+              entered = response.data[i]["wardid"];
+              if (response.data[i]["bedstatus"] == 0) {
+                this.wardinfo.push({
+                  hospitalname: response.data[i]["hospitalname"],
+                  staffid1: response.data[i]["staffid1"],
+                  staffid2: response.data[i]["staffid2"],
+                  availablebed: response.data[i]["amount"],
+                  totalbed: response.data[i]["amount"],
+                  wardtype: response.data[i]["wardtype"],
+                  wardid: response.data[i]["wardid"],
+                });
+              } else {
+                this.wardinfo.push({
+                  hospitalname: response.data[i]["hospitalname"],
+                  staffid1: response.data[i]["staffid1"],
+                  staffid2: response.data[i]["staffid2"],
+                  availablebed: 0,
+                  totalbed: response.data[i]["amount"],
+                  wardtype: response.data[i]["wardtype"],
+                  wardid: response.data[i]["wardid"],
+                });
+              }
+
+              counter++;
+            } else {
+              // this.wardinfo[counter].availablebed = parseInt(this.wardinfo[counter].availablebed) + parseInt(response.data[i]['amount'])
+              this.wardinfo[counter].totalbed =
+                parseInt(this.wardinfo[counter].totalbed) +
+                parseInt(response.data[i]["amount"]);
+            }
+            this.wardinfo[counter].occupancy =
+              100 -
+              Math.round(
+                (this.wardinfo[counter].availablebed /
+                  this.wardinfo[counter].totalbed) *
+                  100
+              );
+          }
+          
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+        this.chosenHospital = true
+    },
     
 
   },

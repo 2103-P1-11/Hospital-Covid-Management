@@ -1,9 +1,17 @@
+Installation:
+Pr
+
+Commonly faced problems: 
+
+
 List of all working routes & APIs
 ===================================
 
+url: localhost:5000
+
 /// BED ///
 
-url: localhost:5000
+
 
 GET
 # Select * from bed

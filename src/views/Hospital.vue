@@ -1,5 +1,4 @@
 <template>
-  <div>
     <v-container>
       <div class="header">
         <h1>{{ pageTitle }}</h1>
@@ -175,7 +174,7 @@
         <button @click="methodOne()">Click me</button>
         <div>You selected {{ answer }}</div> -->
       </div>
-    </v-container>
+    
     <v-card>
       <v-toolbar dark>
         <v-toolbar-title> Ward Information </v-toolbar-title>
@@ -201,12 +200,13 @@
         </v-expansion-panel>
       </v-expansion-panels>
     </v-card>
-  </div>
+    </v-container>
 </template>
 
 <script>
 import axios from "axios";
-const url = "https://hospitaldb1-11.herokuapp.com"
+// const url = "https://hospitaldb1-11.herokuapp.com"
+const url = "http://localhost:5000"
 
 export default {
   name: "Hospital",
