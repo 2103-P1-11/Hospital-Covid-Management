@@ -231,30 +231,6 @@ export default {
           console.log(error);
         });
     },
-    async getBedInfo() {
-      await axios
-        .get(url + "/hos/bedinfo", {
-          hospitalname: this.selectedanswer.replaceAll("'", "''"),
-        })
-        .then((response) => {
-          this.totalbedcapacity = response.data;
-          console.log(this.totalbedcapacity);
-          for (let i = 0; i < this.wardinfo.length; i++) {
-            this.wardinfo[i].totalbed = this.totalbedcapacity[i]["total"];
-            if (this.wardinfo[i].totalbed > 0) {
-              this.wardinfo[i].occupancy = Math.round(
-                (this.wardinfo[i].availablebed / this.wardinfo[i].totalbed) *
-                  100
-              );
-            } else {
-              this.wardinfo[i].occupancy = 0;
-            }
-          }
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-    },
     async getBeds() {
       await axios
         .post(url + "/hos/getavailbed", {

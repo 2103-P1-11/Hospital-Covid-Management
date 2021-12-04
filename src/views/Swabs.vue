@@ -218,6 +218,14 @@ export default {
         .then((response) => {
           console.log(response.data);
           this.swabdata = response.data;
+
+          for (let x = 0; x < this.swabdata.length; x ++){
+            if(!this.swabdata[x].patientid){
+              this.swabdata[x].patientid = 'N.A'
+            }else if(!this.swabdata[x].staffid){
+              this.swabdata[x].staffid = 'N.A'
+            }
+          }
         })
         .catch((error) => {
           this.errorMessage = error.message;

@@ -49,24 +49,6 @@ router.post('/getwardinfo', async (req, res) => {
     }
 })
 
-router.get('/bedinfo', async (req, res) => {
-    try {
-        //Do SQL query
-        const getData = await db.query("Select ward.wardid, count (bed.bedstatus) as total\
-        from ward right join bed on \
-        bed.wardid = ward.wardid \
-		inner join hospital on\
-		ward.hospitalid = hospital.hospitalid\
-		where hospital.hospitalname = 'Alexandra Hospital'\
-        group by ward.wardid\
-		order by ward.wardid;")
-        return res.json(getData)
-        
-    } catch (e) {
-        console.error(e.message)
-    }
-})
-
 //Ward breakdown
 router.get('/wardbreakdown', async (req, res) => {
     try {
