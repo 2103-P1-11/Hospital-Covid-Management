@@ -88,85 +88,6 @@
           <v-spacer></v-spacer>
         </v-flex>
 
-
-          <v-row>
-            <v-col cols="6" class="pb-0 mb-0">
-              <h3 style="vertical-align: middle">Location</h3>
-            </v-col>
-            <v-col cols="6">
-              <v-row>
-                <v-col cols="6" class="pb-0"
-                  ><h3>Nearest alternative:</h3>
-                  <p>Singapore General Hospital</p>
-                </v-col>
-                <v-col cols="6" class="pb-0"
-                  ><h3>Available Capacity:</h3>
-                  <p>50%</p>
-                </v-col>
-              </v-row>
-            </v-col>
-          </v-row>
-
-          <v-row>
-            <v-col cols="6">
-              <div class="hospitalMap" style="margin: auto">
-                <GmapMap
-                  :center="center"
-                  :zoom="15"
-                  map-type-id="hybrid"
-                  style="width: 100%; height: 300px"
-                  :options="{
-                    zoomControl: true,
-                    mapTypeControl: false,
-                    scaleControl: false,
-                    streetViewControl: false,
-                    rotateControl: false,
-                    fullscreenControl: true,
-                    disableDefaultUI: false,
-                  }"
-                >
-                  <!-- <GmapMarker
-                    :key="index"
-                    v-for="(m, index) in markers"
-                    :position="m.position"
-                    :clickable="true"
-                    :draggable="true"
-                    @click="center = m.position"
-                  /> -->
-                </GmapMap>
-              </div>
-            </v-col>
-            <v-col cols="6">
-              <div class="nearestMap" style="margin: auto">
-                <GmapMap
-                  :center="center"
-                  :zoom="15"
-                  map-type-id="hybrid"
-                  style="width: 100%; height: 300px"
-                  :options="{
-                    zoomControl: true,
-                    mapTypeControl: false,
-                    scaleControl: false,
-                    streetViewControl: false,
-                    rotateControl: false,
-                    fullscreenControl: true,
-                    disableDefaultUI: false,
-                  }"
-                >
-                  <!-- <GmapMarker
-                    :key="index"
-                    v-for="(m, index) in markers"
-                    :position="m.position"
-                    :clickable="true"
-                    :draggable="true"
-                    @click="center = m.position"
-                  /> -->
-                </GmapMap>
-              </div>
-            </v-col>
-          </v-row>
-
-
         <!-- <label for="fname" autocomplete="false">First name:</label>
         <input type="text" v-model="test" name="fname" />
         {{ test }}
@@ -227,13 +148,6 @@ export default {
   },
   mounted() {
     this.getData();
-
-    // At this point, the child GmapMap has been mounted, but
-    // its map has not been initialized.
-    // Therefore we need to write mapRef.$mapPromise.then(() => ...)
-    // this.$refs.mapRef.$mapPromise.then((map) => {
-    //   map.panTo(coord);
-    // });
   },
   methods: {
     async getData() {
