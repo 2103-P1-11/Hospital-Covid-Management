@@ -191,11 +191,13 @@
               <v-alert v-if="showAlertBoxTwo" :color="alerttwo.color">
           {{ alerttwo.text }}
         </v-alert>
+        <v-row>
               <v-text-field
                 v-model="search"
                 label="Search"
                 class="mx-4"
               ></v-text-field>
+        </v-row>
             </template>
             <!-- <template   v-slot:[`item.actions`]="{ item }"> !-->
             <template v-slot:[`item.actions`]="{ item }">
@@ -610,6 +612,7 @@ showAlertBoxThree: false,
           this.errorMessage = error.message;
           console.error("There was an error!", error);
         });
+        this.getPersonal();
     },
     selectHospital() {
       this.getAvailable();

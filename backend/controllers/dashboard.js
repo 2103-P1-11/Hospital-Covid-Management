@@ -70,7 +70,7 @@ router.get('/admission', (req, res) => {
 })
 
 router.get('/hospitaltotal', (req, res) => {
-    db.any("Select avg( DATE_PART('day', patient.dischargedate - admissiondate)) from patient;").then(rows=>{
+    db.any("select avg(dischargedate :: date - admissiondate :: date) from patient;").then(rows=>{
         res.json(rows)
     }).catch(error=>{
         console.log(error)
@@ -79,7 +79,7 @@ router.get('/hospitaltotal', (req, res) => {
 
 
 router.get('/hospitaldays', (req, res) => {
-    db.any("Select avg( DATE_PART('day', patient.dischargedate - admissiondate)) from patient where patient.dischargedate > (NOW() - INTERVAL '7 DAY');").then(rows=>{
+    db.any("select avg(dischargedate :: date - admissiondate :: date) from patient where patient.dischargedate > (NOW() - INTERVAL '7 DAY');").then(rows=>{
         res.json(rows)
     }).catch(error=>{
         console.log(error)

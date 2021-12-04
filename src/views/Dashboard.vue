@@ -61,7 +61,7 @@
         width="228px"
       >
         <v-card-title>
-          <h3>{{ (Math.round((avgdays + Number.EPSILON) * 100)/100) }} Days</h3>
+          <h3>{{ (Math.round((parseInt(avgdays) + Number.EPSILON) * 100)/100) }} Days</h3>
           <v-spacer></v-spacer><v-icon>mdi-calendar-today</v-icon>
         </v-card-title>
         <v-card-subtitle>Average stay in hospital</v-card-subtitle>
@@ -71,7 +71,7 @@
           ><v-icon
             v-if="avgdaysinaweek - avgdays < 0"
             >mdi-arrow-up</v-icon
-          > {{ (Math.round((avgdaysinaweek + Number.EPSILON) * 100)/100) }} Days overall </v-card-text
+          > {{ (Math.round((parseInt(avgdaysinaweek) + Number.EPSILON) * 100)/100) }} Days overall </v-card-text
         >
       </v-card>
 
@@ -271,7 +271,9 @@ export default {
       await axios
         .get(url + "/db/hospitaldays")
         .then((response) => {
+          
           this.avgdays = response.data[0]['avg'];
+          console.log(this.avgdays)
         })
         .catch((error) => {
           this.errorMessage = error.message;
@@ -280,7 +282,9 @@ export default {
         await axios
         .get(url + "/db/hospitaltotal")
         .then((response) => {
+          console.log(response)
           this.avgdaysinaweek = response.data[0]['avg'];
+          console.log(this.avgdaysinaweek)
         })
         .catch((error) => {
           this.errorMessage = error.message;
