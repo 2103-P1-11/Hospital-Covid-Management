@@ -146,21 +146,4 @@ router.post('/updatestatus', async (req, res) => {
 })
 
 
-router.post('/check', async (req, res) => {
-    try {
-        // parse request body
-        const {patient, status} = req.body;
-
-        console.log(patient, status)
-
-        //Do SQL query
-        const getData = await db.query("Select bedid from bed where patientid = 10103;")
-        res.json(getData)
-        
-    } catch (e) {
-        console.error(e.message)
-    }
-})
-
-
 module.exports = router;

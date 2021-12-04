@@ -23,6 +23,42 @@ router.get('/getparticulars', (req, res) => {
     })
 })
 
+router.post('/getfreebeds', (req, res) => {
+    const {wardid} = req.body;
+    db.any("Select * from bed where bedstatus = 0;").then(rows=>{
+        res.json(rows)
+    }).catch(error=>{
+        console.log(error)
+    })
+})
+
+router.post('/addpatient', (req, res) => {
+    const {kin, patient} = req.body;
+    db.any("INSERT INTO patient\
+    VALUES (default, '"+patient.Name+"', '"+patient.admission+"', '"+patient.discharge+"', "+patient.Status+");\
+    Insert into nok\
+    values (default, '"+kin.Name+"', "+kin.Contact+", '"+kin.Email+"', \
+    (select patientid from patient where patientname = '"+patient.Name+"'));\
+    Update bed set bedstatus=1, patientid=(Select patientid from patient where patientname = '"+patient.Name+"') where bedid = '"+patient.bedid+"';").then(rows=>{
+        res.json(rows)
+    } ).catch(error=>{
+        console.log(error)
+    })
+})
+
+router.post('/updatepatient', (req, res) => {
+    const {data} = req.body;
+    console.log(data)
+    db.any("Update patient set patientname = '"+data.patientname+"', admissiondate = '"+data.admissiondate+"', \
+    dischargedate = '"+data.dischargedate+"', statusno = '"+data.statusno+"' where patientid = "+data.patientid+";\
+    Update nok set nokname = '"+data.nokname+"', nokcontact = '"+data.nokcontact+"', \
+    nokemail = '"+data.nokemail+"' where patientid = "+data.patientid+";").then(rows=>{
+        res.json(rows)
+    } ).catch(error=>{
+        console.log(error)
+    })
+})
+
 
 
 router.get('/bedsavailable', (req, res) => {

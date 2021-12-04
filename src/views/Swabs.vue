@@ -14,12 +14,21 @@
           :items="swabdata"
           sort-by="administertime"
           class="elevation-1"
+          :search="search"
         >
           <template v-slot:top>
             <v-toolbar flat>
               <v-toolbar-title>Swab Result Management</v-toolbar-title>
               <v-divider class="mx-4" inset vertical></v-divider>
               <v-spacer></v-spacer>
+              <v-text-field
+          v-model="search"
+          append-icon="mdi-magnify"
+          label="Search"
+          single-line
+          hide-details
+        ></v-text-field>
+        <v-spacer></v-spacer>
               <v-dialog v-model="dialog" max-width="500px">
                 <template v-slot:activator="{ on, attrs }">
                   <v-btn
@@ -157,6 +166,7 @@ export default {
   },
   data() {
     return {
+      search:'',
       modal: false,
       date: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
         .toISOString()
