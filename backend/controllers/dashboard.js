@@ -99,9 +99,22 @@ router.get('/admitweek', (req, res) => {
 router.get('/swaball', async (req, res) => {
     try {
         //Do SQL query
+        
         const getData = await db.query("Select swab.swabid, swab.swabresult, swab.administertime, swab.patientid, swab.staffid from swab;")
         return res.json(getData)
         
+    } catch (e) {
+        console.error(e.message)
+    }
+})
+
+//Swab data
+router.post('/addswab', async (req, res) => {
+    try {
+        //Do SQL query
+        const { data } = req.body;
+        const getData = await db.query("insert into swab values (Default, '"+parseInt(data.swabresult)+"', '"+data.administertime+"', '"+data.patientid+"', '"+data.staffid+"')")
+        return res.json(getData)
     } catch (e) {
         console.error(e.message)
     }

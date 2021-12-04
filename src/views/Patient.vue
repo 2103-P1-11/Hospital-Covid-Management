@@ -314,7 +314,6 @@
                   showSaveBtn = !showSaveBtn;
                 "
               >
-                mdi-dots-horizontal
               </v-icon>
             </template>
           </v-data-table>
