@@ -148,8 +148,8 @@
 
 <script>
 import axios from "axios";
-// const url = "https://hospitaldb1-11.herokuapp.com"
-const url = "http://localhost:5000";
+const url = "https://hospitaldb1-11.herokuapp.com"
+// const url = "http://localhost:5000";
 
 export default {
   name: "Swabs",

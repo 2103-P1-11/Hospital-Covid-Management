@@ -262,6 +262,9 @@
         </v-alert>
 
         <v-container>
+          <v-alert v-if="showAlertBoxThree" :color="alertthree.color">
+          {{ alertthree.text }}
+        </v-alert>
           <v-card-title>
             <h3>Patient Information</h3>
           </v-card-title>
@@ -453,8 +456,8 @@
 <script>
 import axios from "axios";
 // import Datepicker from 'vuejs-datepicker'
-// const url = "https://hospitaldb1-11.herokuapp.com"
-const url = "http://localhost:5000";
+const url = "https://hospitaldb1-11.herokuapp.com"
+// const url = "http://localhost:5000";
 
 export default {
   name: "Patient",
@@ -480,6 +483,12 @@ export default {
         color: "green lighten-3",
         text: "example",
       },
+showAlertBoxThree: false,
+      alertthree: {
+        color: "green lighten-3",
+        text: "example",
+      },
+      
 
       selectedbed: null,
       showUpdateBtn: false,
@@ -586,6 +595,16 @@ export default {
         .post(url + "/patient/updatepatient", {data: this.updatedData})
         .then((response) => {
           console.log(response)
+          if(response.status == 200){
+            this.alertthree.text = "Patient information updated successfully"
+            this.alertthree.color = "green lighten-3"
+            this.showAlertBoxThree = true
+          }else{
+            this.alertthree.text = "Patient information not updated, try again"
+            this.alertthree.color = "red lighten-3"
+            this.showAlertBoxThree = true
+          }
+          setTimeout(function(){ this.showAlertBoxThree = false }, 4000);
         })
         .catch((error) => {
           this.errorMessage = error.message;

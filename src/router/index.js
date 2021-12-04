@@ -11,11 +11,6 @@ const routes = [
     component: Dashboard
   },
   {
-    path: '/employee',
-    name: 'Employee',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Employee.vue')
-  },
-  {
     path: '/patient',
     name: 'Patient',
     component: () => import(/* webpackChunkName: "about" */ '../views/Patient.vue')

@@ -208,8 +208,8 @@
 import axios from "axios";
 import chartInfected from "../charts/DailyCovidCases.vue"
 import totalInfected from "../charts/TotalCovidCases.vue"
-// const url = "https://hospitaldb1-11.herokuapp.com"
-const url = "http://localhost:5000"
+const url = "https://hospitaldb1-11.herokuapp.com"
+// const url = "http://localhost:5000"
 
 export default {
   name: "Dashboard",
