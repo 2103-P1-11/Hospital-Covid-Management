@@ -319,15 +319,6 @@ export default {
   flex-direction: row;
 }
 
-.mapCaption {
-  display: flex;
-  flex-direction: row;
-}
-
-.interface {
-  margin-right: 16px;
-}
-
 .wardInfo {
   margin: 0;
 }
