@@ -1,24 +1,28 @@
-# frontend
+To View the Hospital Covid Management Dashboard
 
-## Project setup
-```
+1. Load frontend on localhost
 npm install
-```
-
-### Compiles and hot-reloads for development
-```
 npm run serve
-```
+(Postgres DB is connected to the website located in the folder \\backend)
+(MongoDB is a proof of concept: located in the folder \\backendmongo)
 
-### Compiles and minifies for production
-```
-npm run build
-```
+2. Test backend
+[Online] Postgres - https://hospitaldb1-11.herokuapp.com/
+[Online] MongoDB - https://hospital-mongodb.herokuapp.com/
 
-### Lints and fixes files
-```
-npm run lint
-```
+3. Run backend on localhost
+[Offline] Postgres - nodemon backend/app
+[Offline] Mongo - nodemon backendmongo/server
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+Frontend Libraries:
+Vuetify
+Chart.jS
+Vue
+Axios
+Vuex (Data Store)
+
+Backend Libraries:
+Express
+Nodemon
+Pg-promise
+
