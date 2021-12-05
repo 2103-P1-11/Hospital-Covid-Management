@@ -2,6 +2,8 @@ const express = require("express")
 const router = express.Router()
 const db = require('../config/dbconfig')
 
+// All functions meaning declared in the API.txt
+
 router.get('/bedstatus', (req, res) => {
     db.any("Select bed.bedstatus, count(bed.bedstatus) as total from bed group by bed.bedstatus;").then(rows=>{
         res.json(rows)

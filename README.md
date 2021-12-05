@@ -10,9 +10,13 @@ npm run serve
 [Online] Postgres - https://hospitaldb1-11.herokuapp.com/
 [Online] MongoDB - https://hospital-mongodb.herokuapp.com/
 
-3. Run backend on localhost
-[Offline] Postgres - nodemon backend/app
-[Offline] Mongo - nodemon backendmongo/server
+3. Run backend on localhost (require multiple terminal)
+[Offline] Postgres 
+cd backend
+nodemon backend/app
+[Offline] Mongo - 
+cd backendmongo
+nodemon backendmongo/server
 
 Frontend Libraries:
 Vuetify

@@ -1,0 +1,6 @@
+List of all working routes & APIs
+===================================
+
+Postgres localhost url: localhost:5000
+Mongo localhost url: localhost:8081
+

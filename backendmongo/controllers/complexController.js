@@ -1,20 +1,6 @@
 const db = require("../models");
-const Bed = db.bed;
 const Hospital = db.hospital;
-const Nok = db.nok;
-const Patient = db.patient;
-const Staff = db.staff;
-const Status = db.status;
-const Swab = db.swab;
 const Ward = db.ward;
-
-// exports.getBedStatus = (req, res) => {};
-
-// exports.getICUBedStatus = (req, res) => {};
-
-// exports.getAllDischarge= (req, res) => {};
-
-// exports.getRecentAdmit= (req, res) => {};
 
 exports.getHospitalInfo= (req, res) => {
     Hospital.find()
@@ -28,10 +14,6 @@ exports.getHospitalInfo= (req, res) => {
       });
     });
 };
-
-// exports.getMostRecentAdmission= (req, res) => {};
-
-// exports.getWard= (req, res) => {};
 
 exports.getTotalAdmittedPatient= (req, res) => {
   Ward.aggregate([{
@@ -126,13 +108,6 @@ exports.getCountAdmittedPatients= (req, res) => {
       });
     });
 };
-
-
-// exports.getAverageHospitalStay= (req, res) => {};
-
-// exports.getAverageDays= (req, res) => {};
-
-// exports.getAdmittedWeek= (req, res) => {};
 
 // // for /ward but getting clarification
  exports.getEmptyBed= (req, res) => {
