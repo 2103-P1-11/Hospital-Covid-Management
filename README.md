@@ -25,4 +25,6 @@ Backend Libraries:
 Express
 Nodemon
 Pg-promise
+dotenv
+Mongoose
 
