@@ -179,7 +179,7 @@
 
           <v-card tile  dark>
             <v-card-title>
-              <v-img src="@/assets/medicine.png" height="100px" contain
+              <v-img height="100px" contain
                 ><v-container fill-height fluid pa-2>
                   <v-layout fill-height>
                     See more <v-spacer></v-spacer
@@ -273,7 +273,9 @@ export default {
         .then((response) => {
           
           this.avgdays = response.data[0]['avg'];
-          console.log(this.avgdays)
+          if(this.avgdays == null){
+            this.avgdays = 0;
+          }
         })
         .catch((error) => {
           this.errorMessage = error.message;
